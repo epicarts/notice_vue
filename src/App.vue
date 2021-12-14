@@ -28,6 +28,16 @@ export default {
 :root {
   --header-bg-color: #3765a4;
   --black-24-12: rgba(0, 0, 0, 0.12);
+  --pale-grey: #e2e6ec;
+}
+
+.btn_init {
+  position: relative;
+  border: none;
+  margin: 0;
+  text-align: center;
+  text-decoration: none;
+  background: none;
 }
 
 body {
@@ -54,7 +64,8 @@ h3 {
   letter-spacing: -1px;
 }
 
-ol, ul {
+ol,
+ul {
   list-style: none;
 }
 
