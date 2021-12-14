@@ -36,10 +36,6 @@ export default {
   margin-right: 1px;
 }
 
-.nav-item span {
-  display: block;
-}
-
 .nav-item li:active {
   color: #fff;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
@@ -48,6 +44,7 @@ export default {
 }
 
 .nav-item span {
+  display: block;
   font-size: 13px;
   font-weight: bold;
 }
@@ -57,7 +54,6 @@ export default {
 }
 
 .Rectangle {
-  width: 68px;
   height: 26px;
   padding: 4px 16px 5px;
   border-radius: 4px 4px 0 0;
