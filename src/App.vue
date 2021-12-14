@@ -34,6 +34,18 @@ body {
   background-color: #cad1da;
 }
 
+h1 {
+  font-size: 15pt;
+}
+
+h2 {
+  font-size: 14pt;
+}
+
+h3 {
+  font-size: 13pt;
+}
+
 * {
   margin: 0;
   padding: 0;

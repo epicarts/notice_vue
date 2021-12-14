@@ -1,29 +1,36 @@
 <template>
-  <div>
-    <h1>Notice Page</h1>
-    <BaseHeader />
-    <GNBNav />
-    <LNBNav />
+  <div class="notice-warp">
+    <GnbNav />
+    <div class="gnb-layer">
+      <LnbNav />
+    </div>
   </div>
 </template>
 
 <script>
-import BaseHeader from '../components/BaseHeader.vue'
-import GNBNav from '../components/GNBNav.vue'
-import LNBNav from '../components/LNBNav.vue'
+import GnbNav from "@/components/GnbNav.vue";
+import LnbNav from "@/components/LnbNav.vue";
 
 export default {
-  components: { BaseHeader, GNBNav, LNBNav },
+  components: { GnbNav, LnbNav },
   data() {
-    return {}
-  }
-}
+    return {};
+  },
+};
 </script>
 
 <style scoped>
-header {
-  height: 70px;
-  padding: 0;
+.gnb-layer {
+  height: 120px;
+  margin: 1px 0 0;
+  background-color: #e4e8ec;
+  min-height: 900px;
+  box-shadow: 0 0 6px 0 var(--black-24-12);
 }
 
+.notice-warp {
+  max-width: 1920px;
+  margin: auto;
+  padding: 0 8px;
+}
 </style>
