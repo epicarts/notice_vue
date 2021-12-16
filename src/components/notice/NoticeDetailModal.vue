@@ -103,6 +103,7 @@
                         <NoticeComment
                           :is-child-comment="true"
                           :comment-id="childComment.commentId"
+                          :comment-content="childComment.content"
                         >
                           <template v-slot:title>
                             {{ childComment.content }}
@@ -138,6 +139,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import NoticeCommentForm from "@/components/notice/NoticeCommentForm.vue";
 import NoticeComment from "@/components/notice/NoticeComment.vue";
 
@@ -145,77 +147,26 @@ export default {
   components: { NoticeCommentForm, NoticeComment },
   data() {
     return {
-      api: {
-        noticeId: 1,
-        title: "첫번째 공지사항 제목입니다",
-        content: "첫번째 공자사항 내용입니다",
-        attachmentUrl: "",
-        author: "최영호",
-        views: 0,
-        numberOfComment: 6,
-        created: "2021-12-15 15:49",
-        comments: [
-          {
-            commentId: 1,
-            content: "댓글입니다",
-            division: "OW공통개발실",
-            author: "최영호",
-            created: "2021-12-15 15:49",
-            childComments: [
-              {
-                commentId: 2,
-                content: "대댓글입니다1",
-                division: "OW공통개발실",
-                author: "최영호",
-                created: "2021-12-15 15:49",
-                childComments: [],
-              },
-              {
-                commentId: 3,
-                content: "삭제된 댓글입니다",
-                division: "OW공통개발실",
-                author: "최영호",
-                created: "2021-12-15 15:49",
-                childComments: [],
-              },
-            ],
-          },
-          {
-            commentId: 4,
-            content: "댓글입니다222",
-            division: "OW공통개발실",
-            author: "최영호",
-            created: "2021-12-15 15:49",
-            childComments: [
-              {
-                commentId: 5,
-                content: "대댓글입니다",
-                division: "OW공통개발실",
-                author: "최영호",
-                created: "2021-12-15 15:49",
-                childComments: [],
-              },
-            ],
-          },
-          {
-            commentId: 7,
-            content: "댓글입니다333",
-            division: "OW공통개발실",
-            author: "최영호",
-            created: "2021-12-15 15:49",
-            childComments: [],
-          },
-          {
-            commentId: 12,
-            content: "댓글 댓글 4444",
-            division: "OW공통개발실",
-            author: "전우치",
-            created: "2021-12-15 15:49",
-            childComments: [],
-          },
-        ],
-      },
+      api: [],
+      data: {},
     };
+  },
+  created() {
+    this.apiDataRequest();
+  },
+  methods: {
+    apiDataRequest() {
+      axios
+        .get("/api/notices/1")
+        .then((response) => {
+          // console.log(response);
+          console.log(response.data);
+          this.api = response.data;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
   },
 };
 </script>
