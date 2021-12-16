@@ -18,11 +18,11 @@ export default {
 
 <style>
 #app {
-  font-family: "Malgun Gothic", Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'MalgunGothic', 'Malgun Gothic', '맑은고딕', 돋움, dotum, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #333;
 }
 
 :root {
@@ -64,6 +64,14 @@ h3 {
   letter-spacing: -1px;
 }
 
+textarea:focus {
+    outline: none;
+}
+
+textarea::placeholder {
+  color: #999;
+}
+
 ol,
 ul {
   list-style: none;
@@ -88,5 +96,41 @@ table {
   height: 1px;
   margin: -1px;
   overflow: hidden;
+}
+
+.tbl-type {
+  width: 100%;
+  border: solid 1px #e2e6ec;
+  background-color: #ffffff;
+  border-collapse: collapse;
+}
+
+.tbl-type th {
+  width: 120px;
+  text-align: center;
+  background-color: #f1f5f9;
+  font-size: 12px;
+  font-weight: bold;
+  color: #333333;
+  height: 34px;
+  border-bottom: solid 1px #e2e6ec;
+}
+
+.tbl-type td {
+  text-align: left;
+  padding: 8px;
+  font-size: 12px;
+  font-weight: normal;
+  color: #333333;
+  border: solid 1px #e2e6ec;
+  word-break: break-all;
+}
+
+.tbl-type a {
+  margin-right: 10px;
+}
+
+.tbl-type .text-area {
+  white-space: pre-wrap;
 }
 </style>
