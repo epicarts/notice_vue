@@ -76,15 +76,18 @@
                 <!-- 댓글 -->
                 <ul class="comments-list">
                   <li v-for="comment in api.comments" :key="comment.commentId">
-                    <NoticeComment>
-                      <template v-slot:title>
-                        {{ comment.content }}
+                    <NoticeComment :comment-id="comment.commentId">
+                      <template v-slot:division>
+                        {{ comment.division }}
                       </template>
                       <template v-slot:author>
                         {{ comment.author }}
                       </template>
                       <template v-slot:created>
                         {{ comment.created }}
+                      </template>
+                      <template v-slot:content>
+                        {{ comment.content }}
                       </template>
                     </NoticeComment>
 
@@ -97,7 +100,10 @@
                         v-for="childComment in comment.childComments"
                         :key="childComment.commentId"
                       >
-                        <NoticeComment>
+                        <NoticeComment
+                          :is-child-comment="true"
+                          :comment-id="childComment.commentId"
+                        >
                           <template v-slot:title>
                             {{ childComment.content }}
                           </template>
@@ -106,6 +112,9 @@
                           </template>
                           <template v-slot:created>
                             {{ childComment.created }}
+                          </template>
+                          <template v-slot:content>
+                            {{ comment.content }}
                           </template>
                         </NoticeComment>
                       </li>

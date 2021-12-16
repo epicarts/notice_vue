@@ -41,6 +41,39 @@ export default {
   background: none;
 }
 
+.btn-type4 {
+  vertical-align: middle;
+  min-width: 32px;
+  height: 20px;
+  padding: 1px 6px 4px;
+  border: solid 1px #b1b5bb;
+  background-color: #ffffff;
+  font-size: 11px;
+  font-weight: bold;
+  color: #525c68;
+  margin-left: 2px;
+  color: var(--slate-grey);
+}
+
+.btn-type4:hover {
+  height: 20px;
+  border: solid 1px #506574;
+  background-color: #5d7b92;
+  font-size: 11px;
+  line-height: 1;
+  font-weight: bold;
+  letter-spacing: -1px;
+  color: #ffffff;
+}
+
+.btn-type4:disabled {
+  color: #b9bdc2;
+  cursor: text;
+  border-radius: 2px;
+  border: solid 1px #b9bdc2;
+  background-color: #e8e8e8;
+}
+
 body {
   overflow: hidden;
   background-color: #cad1da;
