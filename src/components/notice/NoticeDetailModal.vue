@@ -225,11 +225,19 @@ export default {
   border-top: solid 1px var(--pale-grey);
 }
 
+.comments-list ul li::before {
+  position: absolute;
+  left: -22px;
+  top: 12px;
+  content: url("~@/assets/ico-comment.svg");
+}
+
 .comments-list {
   width: 100%;
 }
 
 .comments-list li {
+  position: relative;
   width: 100%;
   border-bottom: solid 1px var(--pale-grey);
 }
