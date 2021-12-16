@@ -18,104 +18,109 @@
             </button>
           </div>
 
-          <!-- 상세 table -->
-          <div class="modal-body">
-            <!-- 공지사항 표시 영역 -->
-            <div class="notice-area">
-              <table class="tbl-type">
-                <tr>
-                  <th>제목</th>
-                  <td colspan="5">DPONT EX-11C</td>
-                </tr>
-                <tr>
-                  <th>작성자</th>
-                  <td>홍길동</td>
-                  <th>작성일시</th>
-                  <td>2021-05-15</td>
-                  <th>번호</th>
-                  <td>45</td>
-                </tr>
-                <tr>
-                  <th>첨부파일</th>
-                  <td colspan="5">
-                    <a href="#">공지사항문서1</a>
-                    <a href="#">공지사항 이미지</a>
-                  </td>
-                </tr>
-                <tr>
-                  <td colspan="6">
-                    <div class="text-area">
-                      <p>8월 합배송 공지사항입니다.</p>
+          <div class="modal-scroll-layer">
+            <!-- 상세 table -->
+            <div class="modal-body">
+              <!-- 공지사항 표시 영역 -->
+              <div class="notice-area">
+                <table class="tbl-type">
+                  <tr>
+                    <th>제목</th>
+                    <td colspan="5">DPONT EX-11C</td>
+                  </tr>
+                  <tr>
+                    <th>작성자</th>
+                    <td>홍길동</td>
+                    <th>작성일시</th>
+                    <td>2021-05-15</td>
+                    <th>번호</th>
+                    <td>45</td>
+                  </tr>
+                  <tr>
+                    <th>첨부파일</th>
+                    <td colspan="5">
+                      <a href="#">공지사항문서1</a>
+                      <a href="#">공지사항 이미지</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="6">
+                      <div class="text-area">
+                        <p>8월 합배송 공지사항입니다.</p>
 
-                      합배송 협력사는 재고 발생시 재고 없음 처리를 꼭 해주시기
-                      바랍니다. 합배송 협력사는 재고 발생시 재고 없음 처리를 꼭
-                      해주시기 바랍니다. 합배송 협력사는 재고 발생시 재고 없음
-                      처리를 꼭 해주시기 바랍니다. 합배송 협력사는 재고 발생시
-                      재고 없음 처리를 꼭 해주시기 바랍니다. 합배송 협력사는
-                      재고 발생시 재고 없음 처리를 꼭 해주시기 바랍니다. 합배송
-                      협력사는 재고 발생시 재고 없음 처리를 꼭 해주시기
-                      바랍니다. 합배송 협력사는 재고 발생시 재고 없음 처리를 꼭
-                      해주시기 바랍니다. 합배송 협력사는 재고 발생시 재고 없음
-                      처리를 꼭 해주시기 바랍니다.
-                    </div>
-                  </td>
-                </tr>
-              </table>
-              <NoticeCommentForm class="notice-comment-form"
-                >댓글</NoticeCommentForm
-              >
-            </div>
+                        합배송 협력사는 재고 발생시 재고 없음 처리를 꼭 해주시기
+                        바랍니다. 합배송 협력사는 재고 발생시 재고 없음 처리를
+                        꼭 해주시기 바랍니다. 합배송 협력사는 재고 발생시 재고
+                        없음 처리를 꼭 해주시기 바랍니다. 합배송 협력사는 재고
+                        발생시 재고 없음 처리를 꼭 해주시기 바랍니다. 합배송
+                        협력사는 재고 발생시 재고 없음 처리를 꼭 해주시기
+                        바랍니다. 합배송 협력사는 재고 발생시 재고 없음 처리를
+                        꼭 해주시기 바랍니다. 합배송 협력사는 재고 발생시 재고
+                        없음 처리를 꼭 해주시기 바랍니다. 합배송 협력사는 재고
+                        발생시 재고 없음 처리를 꼭 해주시기 바랍니다.
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+                <NoticeCommentForm class="notice-comment-form"
+                  >댓글</NoticeCommentForm
+                >
+              </div>
 
-            <!-- 공지사항 표시 영역 -->
-            <div class="comments-area">
-              <span class="comments-area-title">
-                전체 댓글
-                <span>{{ api.numberOfComment }}</span>
-              </span>
-              <!-- 댓글 -->
-              <ul class="comments-list">
-                <li v-for="comment in api.comments" :key="comment.commentId">
-                  <NoticeComment>
-                    <template v-slot:title>
-                      {{ comment.content }}
-                    </template>
-                    <template v-slot:author>
-                      {{ comment.author }}
-                    </template>
-                    <template v-slot:created>
-                      {{ comment.created }}
-                    </template>
-                  </NoticeComment>
+              <!-- 공지사항 표시 영역 -->
+              <div class="comments-area">
+                <span class="comments-area-title">
+                  전체 댓글
+                  <span>{{ api.numberOfComment }}</span>
+                </span>
+                <!-- 댓글 -->
+                <ul class="comments-list">
+                  <li v-for="comment in api.comments" :key="comment.commentId">
+                    <NoticeComment>
+                      <template v-slot:title>
+                        {{ comment.content }}
+                      </template>
+                      <template v-slot:author>
+                        {{ comment.author }}
+                      </template>
+                      <template v-slot:created>
+                        {{ comment.created }}
+                      </template>
+                    </NoticeComment>
 
-                  <!-- 대댓글 -->
-                  <ul v-if="comment.childComments.length" class="comments-list">
-                    <li
-                      v-for="childComment in comment.childComments"
-                      :key="childComment.commentId"
+                    <!-- 대댓글 -->
+                    <ul
+                      v-if="comment.childComments.length"
+                      class="comments-list"
                     >
-                      <NoticeComment>
-                        <template v-slot:title>
-                          {{ childComment.content }}
-                        </template>
-                        <template v-slot:author>
-                          {{ childComment.author }}
-                        </template>
-                        <template v-slot:created>
-                          {{ childComment.created }}
-                        </template>
-                      </NoticeComment>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-              <NoticeCommentForm class="comment-form">답글</NoticeCommentForm>
+                      <li
+                        v-for="childComment in comment.childComments"
+                        :key="childComment.commentId"
+                      >
+                        <NoticeComment>
+                          <template v-slot:title>
+                            {{ childComment.content }}
+                          </template>
+                          <template v-slot:author>
+                            {{ childComment.author }}
+                          </template>
+                          <template v-slot:created>
+                            {{ childComment.created }}
+                          </template>
+                        </NoticeComment>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+                <NoticeCommentForm class="comment-form">답글</NoticeCommentForm>
+              </div>
             </div>
-          </div>
 
-          <div class="modal-footer">
-            <button class="modal-default-button" @click="$emit('close')">
-              <span>목록</span>
-            </button>
+            <div class="modal-footer">
+              <button class="modal-default-button" @click="$emit('close')">
+                <span>목록</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -241,7 +246,7 @@ export default {
   font-size: 13px;
   font-weight: bold;
   padding-bottom: 10px;
-  /* border-bottom: solid 1px var(--pale-grey); */
+  border-bottom: solid 1px var(--pale-grey);
   width: 100%;
   text-align: left;
 }
@@ -281,7 +286,6 @@ export default {
   border-radius: 2px;
   box-shadow: 0 16px 36px 0 rgba(0, 0, 0, 0.5);
   transition: all 0.3s ease;
-  font-family: Helvetica, Arial, sans-serif;
 }
 
 .modal-header {
@@ -297,6 +301,11 @@ export default {
 .modal-header h3 {
   font-size: 14px;
   color: #fff;
+}
+
+.modal-scroll-layer {
+  height: 800px;
+  overflow: auto;
 }
 
 .modal-body {

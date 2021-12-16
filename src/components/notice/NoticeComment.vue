@@ -3,17 +3,16 @@
     <div class="comment-title-area">
       <span class="comment-title">
         <slot name="title">드림메디칼</slot>
-        <div class="sep_tt_1"></div>
-
         <span class="comment-user"> (<slot name="author">기수지</slot>) </span>
+        <div class="sep_tt_1"></div>
       </span>
       <span class="comment-date"
         ><slot name="date">2021-08-15 15:01</slot></span
       >
     </div>
-    <div class="comment-content-area">
+    <span class="comment-content-area">
       재고 없는 상품에 대해 재고없음 처리했습니다.
-    </div>
+    </span>
   </div>
 </template>
 
@@ -26,6 +25,11 @@ export default {};
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+
+.comment-area span {
+  display: inline-block;
+  font-size: 12px;
 }
 
 .comment-content-area {

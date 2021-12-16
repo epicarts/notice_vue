@@ -18,7 +18,8 @@ export default {
 
 <style>
 #app {
-  font-family: 'MalgunGothic', 'Malgun Gothic', '맑은고딕', 돋움, dotum, sans-serif;
+  font-family: "MalgunGothic", "Malgun Gothic", "맑은고딕", 돋움, dotum,
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -41,6 +42,7 @@ export default {
 }
 
 body {
+  overflow: hidden;
   background-color: #cad1da;
 }
 
@@ -64,8 +66,15 @@ h3 {
   letter-spacing: -1px;
 }
 
+html,
+body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
 textarea:focus {
-    outline: none;
+  outline: none;
 }
 
 textarea::placeholder {

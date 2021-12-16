@@ -16,7 +16,7 @@
 <script>
 import GnbNav from "@/components/GnbNav.vue";
 import LnbNav from "@/components/LnbNav.vue";
-import NoticeGrid from "@/components/notice/NoticeGrid.vue"
+import NoticeGrid from "@/components/notice/NoticeGrid.vue";
 
 export default {
   components: { GnbNav, LnbNav, NoticeGrid },
@@ -30,20 +30,21 @@ export default {
 .gnb-layer {
   margin: 1px 0 0;
   background-color: #e4e8ec;
-  min-height: 900px;
   box-shadow: 0 0 6px 0 var(--black-24-12);
   padding-top: 6px;
+  height: calc(100vh - 85px);
 }
 
 .lnb-layer {
   box-shadow: 0 0 6px 0 var(--black-24-12);
   border: solid 2px #6980af;
   background-color: #fff;
-  min-height: 980px;
+  height: 98%;
+  overflow-y: auto;
 }
 
 .notice-warp {
-  max-width: 1920px;
+  min-width: 1024px;
   margin: auto;
   padding: 0 8px;
 }

@@ -13,7 +13,6 @@
         <AccessInfo />
       </div>
     </div>
-    
   </header>
 </template>
 
@@ -22,10 +21,10 @@ import Logo from "./OWOsstemLogo.vue";
 import HeaderDepth from "./HeaderDepth.vue";
 import UserInfo from "./user/UserInfoList.vue";
 import HeaderButtonList from "./HeaderButtonList.vue";
-import AccessInfo from "./user/AccessInfo.vue"
+import AccessInfo from "./user/AccessInfo.vue";
 
 export default {
-  components: { Logo, HeaderDepth, UserInfo, HeaderButtonList, AccessInfo},
+  components: { Logo, HeaderDepth, UserInfo, HeaderButtonList, AccessInfo },
   data() {
     return {};
   },
@@ -41,10 +40,11 @@ export default {
 }
 
 .header-wrap {
+  min-width: 1024px;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 1920px;
   margin: auto;
 }
 
