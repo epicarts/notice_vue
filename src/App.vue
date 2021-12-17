@@ -30,6 +30,19 @@ export default {
   --header-bg-color: #3765a4;
   --black-24-12: rgba(0, 0, 0, 0.12);
   --pale-grey: #e2e6ec;
+  --light-blue-grey: #dbe9ef;
+  --brownish-grey: #666;
+  --3765-a-4: #3765a4;
+  --404854-1: #404854;
+  --cool-grey: #b5b7c3;
+  --slate-grey: #525c68;
+  --bluey-purple: #733acf;
+  --lavender-blue: #8e9ff1;
+  --black-24: rgba(0, 0, 0, 0.24);
+  --dusk-blue: #1e6077;
+  --black-24-30: rgba(0, 0, 0, 0.3);
+  --black-24-20: rgba(0, 0, 0, 0.2);
+  --black-24-10: rgba(0, 0, 0, 0.1);
 }
 
 .btn_init {
