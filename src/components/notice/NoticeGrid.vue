@@ -20,8 +20,21 @@
         </button>
       </span>
     </div>
-    <div class="notice-grid">그리드 영역</div>
-    <div class="pagenation">페이지네이션 영역</div>
+    <div class="notice-grid">
+      <ul>
+        <li v-for="notice in api.content" :key="notice.noticeId">
+          <span>{{ notice.noticeId }}</span>
+          <span>{{ notice.title }}</span>
+          <span>{{ notice.author }}</span>
+          <span>{{ notice.created }}</span>
+          <span>{{ notice.division }}</span>
+        </li>
+      </ul>
+    </div>
+    <div class="pagenation">
+      <button @click="onClickPagenationHandler(-1)">감소</button>
+      <button @click="onClickPagenationHandler(1)">증가</button>
+    </div>
     <button id="show-modal" @click="showModal = true">Show Modal</button>
     <!-- use the modal component, pass in the prop -->
     <!-- 모달 영역 -->
@@ -36,6 +49,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import NoticeDetailModal from "@/components/notice/NoticeDetailModal";
 
 export default {
@@ -43,7 +57,34 @@ export default {
   data() {
     return {
       showModal: false,
+      api: {},
+      page: 0,
+      size: 20,
     };
+  },
+  created() {
+    this.apiDataRequest();
+  },
+  methods: {
+    onClickPagenationHandler(count) {
+      this.page += count;
+      this.apiDataRequest();
+    },
+    apiDataRequest() {
+      axios
+        .get("/api/notices", {
+          params: {
+            page: this.page,
+            size: this.size,
+          },
+        })
+        .then((response) => {
+          this.api = response.data;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
   },
 };
 </script>
