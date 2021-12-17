@@ -28,6 +28,7 @@
           <span>{{ notice.author }}</span>
           <span>{{ notice.created }}</span>
           <span>{{ notice.division }}</span>
+          <button @click="openModal(notice.noticeId)">자세히보기</button>
         </li>
       </ul>
     </div>
@@ -35,16 +36,21 @@
       <button @click="onClickPagenationHandler(-1)">감소</button>
       <button @click="onClickPagenationHandler(1)">증가</button>
     </div>
-    <button id="show-modal" @click="showModal = true">Show Modal</button>
+    <NoticeDetailModal
+      :noticeId="modalData"
+      v-if="showModal"
+      @close="showModal = false"
+    ></NoticeDetailModal>
+    <!-- <button id="show-modal" @click="showModal = true">Show Modal</button> -->
     <!-- use the modal component, pass in the prop -->
     <!-- 모달 영역 -->
-    <NoticeDetailModal v-if="showModal" @close="showModal = false">
-      <!--
+    <!-- <NoticeDetailModal v-if="showModal" @close="showModal = false"> -->
+    <!--
       you can use custom content here to overwrite
       default content
     -->
-      <!-- <h3 slot="header">custom header</h3> -->
-    </NoticeDetailModal>
+    <!-- <h3 slot="header">custom header</h3> -->
+    <!-- </NoticeDetailModal> -->
   </div>
 </template>
 
@@ -55,20 +61,24 @@ export default {
   components: { NoticeDetailModal },
   data() {
     return {
+      modalData: null,
       showModal: false,
       api: {},
       page: 0,
       size: 20,
+      search: "",
     };
   },
   created() {
     this.apiDataRequest();
   },
   methods: {
+    // pagenation
     onClickPagenationHandler(count) {
       this.page += count;
       this.apiDataRequest();
     },
+    // API
     async apiDataRequest() {
       this.api = await this.$getapi("/api/notices", this.getParams());
     },
@@ -76,7 +86,13 @@ export default {
       return {
         page: this.page,
         size: this.size,
+        search: this.search,
       };
+    },
+    // 모달
+    openModal(data) {
+      this.modalData = data
+      this.showModal = true
     },
   },
 };

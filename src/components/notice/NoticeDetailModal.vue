@@ -150,12 +150,19 @@ export default {
       data: {},
     };
   },
+  props: {
+    noticeId: {
+      type: Number,
+      required: true,
+    },
+  },
   created() {
-    this.apiDataRequest();
+    this.apiDataRequest(this.noticeId);
   },
   methods: {
-    async apiDataRequest() {
-      this.api = await this.$getapi("/api/notices/1");
+    async apiDataRequest(id) {
+      console.log(id);
+      this.api = await this.$getapi(`/api/notices/${id}`);
     },
   },
 };
