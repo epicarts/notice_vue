@@ -26,15 +26,15 @@
                 <table class="tbl-type">
                   <tr>
                     <th>제목</th>
-                    <td colspan="5">DPONT EX-11C</td>
+                    <td colspan="5">{{ api.title }}</td>
                   </tr>
                   <tr>
                     <th>작성자</th>
-                    <td>홍길동</td>
+                    <td>{{ api.author }}</td>
                     <th>작성일시</th>
-                    <td>2021-05-15</td>
+                    <td>{{ api.created }}</td>
                     <th>번호</th>
-                    <td>45</td>
+                    <td>{{ api.noticeId }}</td>
                   </tr>
                   <tr>
                     <th>첨부파일</th>
@@ -46,23 +46,15 @@
                   <tr>
                     <td colspan="6">
                       <div class="text-area">
-                        <p>8월 합배송 공지사항입니다.</p>
-
-                        합배송 협력사는 재고 발생시 재고 없음 처리를 꼭 해주시기
-                        바랍니다. 합배송 협력사는 재고 발생시 재고 없음 처리를
-                        꼭 해주시기 바랍니다. 합배송 협력사는 재고 발생시 재고
-                        없음 처리를 꼭 해주시기 바랍니다. 합배송 협력사는 재고
-                        발생시 재고 없음 처리를 꼭 해주시기 바랍니다. 합배송
-                        협력사는 재고 발생시 재고 없음 처리를 꼭 해주시기
-                        바랍니다. 합배송 협력사는 재고 발생시 재고 없음 처리를
-                        꼭 해주시기 바랍니다. 합배송 협력사는 재고 발생시 재고
-                        없음 처리를 꼭 해주시기 바랍니다. 합배송 협력사는 재고
-                        발생시 재고 없음 처리를 꼭 해주시기 바랍니다.
+                        {{ api.content }}
                       </div>
                     </td>
                   </tr>
                 </table>
-                <NoticeCommentForm class="notice-comment-form"
+                <NoticeCommentForm
+                  :notice-id="api.noticeId"
+                  @refresh="refreshData"
+                  class="notice-comment-form"
                   >댓글</NoticeCommentForm
                 >
               </div>
@@ -122,7 +114,6 @@
                     </ul>
                   </li>
                 </ul>
-                <NoticeCommentForm class="comment-form">답글</NoticeCommentForm>
               </div>
             </div>
 
@@ -161,8 +152,10 @@ export default {
   },
   methods: {
     async apiDataRequest(id) {
-      console.log(id);
       this.api = await this.$getapi(`/api/notices/${id}`);
+    },
+    refreshData() {
+      this.apiDataRequest(this.noticeId);
     },
   },
 };

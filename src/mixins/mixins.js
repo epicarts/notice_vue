@@ -23,5 +23,15 @@ export default {
           console.log(e);
         });
     },
+    async $postapi(url, data) {
+      return await axios
+        .post(url, data)
+        .then(function (response) {
+          return response.data;
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    },
   },
 };

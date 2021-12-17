@@ -1,10 +1,5 @@
 <template>
-  <form
-    class="comment-form"
-    action="/notices/1/comments"
-    method="post"
-    id="comment"
-  >
+  <form @submit.prevent="submit" class="comment-form">
     <div class="comment-title-area">
       <span class="comment-title"> <slot>글</slot> 작성 </span>
       <span class="comment-form-help"
@@ -14,6 +9,7 @@
     </div>
     <div class="commet-textarea">
       <textarea
+        v-model="form.content"
         name="comment"
         id="comment"
         cols="30"
@@ -22,13 +18,44 @@
         maxlength="255"
         required="required"
       ></textarea>
-      <button type="submit" form="comment">등록</button>
+      <button type="submit">등록</button>
     </div>
   </form>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      form: {
+        content: "",
+        parentId: 0,
+      },
+    };
+  },
+  props: {
+    noticeId: {
+      type: Number,
+      required: true,
+    },
+    parentId: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
+  },
+  methods: {
+    async submit() {
+      console.log(this.form);
+      this.api = await this.$postapi(
+        `/api/notices/${this.noticeId}/comments`,
+        this.form
+      );
+      this.$emit("refresh");
+      this.form.content = "";
+    },
+  },
+};
 </script>
 
 <style scoped>

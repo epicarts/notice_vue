@@ -36,21 +36,12 @@
       <button @click="onClickPagenationHandler(-1)">감소</button>
       <button @click="onClickPagenationHandler(1)">증가</button>
     </div>
+    <!-- 모달 영역 -->
     <NoticeDetailModal
-      :noticeId="modalData"
+      :notice-id="modalData"
       v-if="showModal"
       @close="showModal = false"
     ></NoticeDetailModal>
-    <!-- <button id="show-modal" @click="showModal = true">Show Modal</button> -->
-    <!-- use the modal component, pass in the prop -->
-    <!-- 모달 영역 -->
-    <!-- <NoticeDetailModal v-if="showModal" @close="showModal = false"> -->
-    <!--
-      you can use custom content here to overwrite
-      default content
-    -->
-    <!-- <h3 slot="header">custom header</h3> -->
-    <!-- </NoticeDetailModal> -->
   </div>
 </template>
 
@@ -91,8 +82,8 @@ export default {
     },
     // 모달
     openModal(data) {
-      this.modalData = data
-      this.showModal = true
+      this.modalData = data;
+      this.showModal = true;
     },
   },
 };

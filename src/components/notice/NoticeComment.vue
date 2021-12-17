@@ -23,7 +23,11 @@
           <span>수정</span>
         </button>
         <button class="btn_init btn-type4"><span>삭제</span></button>
-        <button class="btn_init btn-type4" v-if="isChildComment">
+        <button
+          class="btn_init btn-type4"
+          v-if="!isChildComment"
+          @click="showChildCommentForm = true"
+        >
           <span>답글달기</span>
         </button>
       </div>
@@ -43,14 +47,25 @@
     <span v-else class="comment-content-area">
       <slot name="content"> 재고 없는 상품에 대해 재고없음 처리했습니다. </slot>
     </span>
+    <NoticeCommentForm
+      v-if="showChildCommentForm"
+      :noticeId="1"
+      :parentId="commentId"
+    >답글
+    </NoticeCommentForm>
   </div>
 </template>
 
 <script>
+import NoticeCommentForm from "@/components/notice/NoticeCommentForm.vue";
+
 export default {
+  components: { NoticeCommentForm },
+
   data() {
     return {
       isFixMode: false,
+      showChildCommentForm: false,
     };
   },
   props: {
