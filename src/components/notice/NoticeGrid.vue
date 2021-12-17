@@ -49,7 +49,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import NoticeDetailModal from "@/components/notice/NoticeDetailModal";
 
 export default {
@@ -70,20 +69,14 @@ export default {
       this.page += count;
       this.apiDataRequest();
     },
-    apiDataRequest() {
-      axios
-        .get("/api/notices", {
-          params: {
-            page: this.page,
-            size: this.size,
-          },
-        })
-        .then((response) => {
-          this.api = response.data;
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+    async apiDataRequest() {
+      this.api = await this.$getapi("/api/notices", this.getParams());
+    },
+    getParams() {
+      return {
+        page: this.page,
+        size: this.size,
+      };
     },
   },
 };

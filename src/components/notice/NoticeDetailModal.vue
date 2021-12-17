@@ -139,7 +139,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import NoticeCommentForm from "@/components/notice/NoticeCommentForm.vue";
 import NoticeComment from "@/components/notice/NoticeComment.vue";
 
@@ -155,17 +154,8 @@ export default {
     this.apiDataRequest();
   },
   methods: {
-    apiDataRequest() {
-      axios
-        .get("/api/notices/1")
-        .then((response) => {
-          // console.log(response);
-          console.log(response.data);
-          this.api = response.data;
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+    async apiDataRequest() {
+      this.api = await this.$getapi("/api/notices/1");
     },
   },
 };
