@@ -52,6 +52,7 @@
                   </tr>
                 </table>
                 <NoticeCommentForm
+                  v-if="api.noticeId"
                   :noticeId="api.noticeId"
                   class="notice-comment-form"
                   >댓글</NoticeCommentForm
