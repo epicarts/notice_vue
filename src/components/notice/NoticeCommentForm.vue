@@ -29,7 +29,7 @@ export default {
     return {
       form: {
         content: "",
-        parentId: 0,
+        parentId: this.parentId,
       },
     };
   },
@@ -38,23 +38,29 @@ export default {
       type: Number,
       required: true,
     },
+    commentId: {
+      type: Number,
+    },
     parentId: {
       type: Number,
       required: false,
       default: 0,
     },
   },
+  inject: ["refresh"],
   methods: {
     async submit() {
-      console.log(this.form);
       this.api = await this.$postapi(
         `/api/notices/${this.noticeId}/comments`,
         this.form
       );
-      this.$emit("refresh");
+      this.refresh();
       this.form.content = "";
     },
   },
+  created() {
+    console.log(this.noticeId);
+  }
 };
 </script>
 

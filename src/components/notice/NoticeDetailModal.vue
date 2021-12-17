@@ -52,8 +52,7 @@
                   </tr>
                 </table>
                 <NoticeCommentForm
-                  :notice-id="api.noticeId"
-                  @refresh="refreshData"
+                  :noticeId="api.noticeId"
                   class="notice-comment-form"
                   >댓글</NoticeCommentForm
                 >
@@ -68,7 +67,10 @@
                 <!-- 댓글 -->
                 <ul class="comments-list">
                   <li v-for="comment in api.comments" :key="comment.commentId">
-                    <NoticeComment :comment-id="comment.commentId">
+                    <NoticeComment
+                      :commentId="comment.commentId"
+                      :noticeId="api.noticeId"
+                    >
                       <template v-slot:division>
                         {{ comment.division }}
                       </template>
@@ -93,12 +95,12 @@
                         :key="childComment.commentId"
                       >
                         <NoticeComment
-                          :is-child-comment="true"
-                          :comment-id="childComment.commentId"
-                          :comment-content="childComment.content"
+                          :isChildComment="true"
+                          :commentId="comment.commentId"
+                          :noticeId="api.noticeId"
                         >
-                          <template v-slot:title>
-                            {{ childComment.content }}
+                          <template v-slot:division>
+                            {{ childComment.division }}
                           </template>
                           <template v-slot:author>
                             {{ childComment.author }}
@@ -107,7 +109,7 @@
                             {{ childComment.created }}
                           </template>
                           <template v-slot:content>
-                            {{ comment.content }}
+                            {{ childComment.content }}
                           </template>
                         </NoticeComment>
                       </li>
@@ -135,6 +137,12 @@ import NoticeComment from "@/components/notice/NoticeComment.vue";
 
 export default {
   components: { NoticeCommentForm, NoticeComment },
+  // provide로 refresh 함수를 제공함
+  provide() {
+    return {
+      refresh: this.refreshData,
+    };
+  },
   data() {
     return {
       api: [],

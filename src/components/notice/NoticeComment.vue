@@ -26,7 +26,7 @@
         <button
           class="btn_init btn-type4"
           v-if="!isChildComment"
-          @click="showChildCommentForm = true"
+          @click="onClickshowCommentFormHandler"
         >
           <span>답글달기</span>
         </button>
@@ -47,11 +47,13 @@
     <span v-else class="comment-content-area">
       <slot name="content"> 재고 없는 상품에 대해 재고없음 처리했습니다. </slot>
     </span>
+
+    <!-- 답글 달기 Form -->
     <NoticeCommentForm
-      v-if="showChildCommentForm"
-      :noticeId="1"
-      :parentId="commentId"
-    >답글
+      v-if="showCommentForm"
+      :noticeId="this.noticeId"
+      :parentId="this.commentId"
+      >답글
     </NoticeCommentForm>
   </div>
 </template>
@@ -61,17 +63,20 @@ import NoticeCommentForm from "@/components/notice/NoticeCommentForm.vue";
 
 export default {
   components: { NoticeCommentForm },
-
   data() {
     return {
       isFixMode: false,
-      showChildCommentForm: false,
+      showCommentForm: false,
     };
   },
   props: {
     isChildComment: {
       type: Boolean,
       default: false,
+    },
+    noticeId: {
+      type: Number,
+      required: true,
     },
     commentId: {
       type: Number,
@@ -81,6 +86,9 @@ export default {
   methods: {
     onClickFixModeHandler() {
       this.isFixMode = !this.isFixMode;
+    },
+    onClickshowCommentFormHandler() {
+      this.showCommentForm = !this.showCommentForm;
     },
   },
 };
