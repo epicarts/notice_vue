@@ -34,6 +34,7 @@ export default {
     };
   },
   props: {
+    showCommentFormEvent: Function,
     noticeId: {
       type: Number,
       required: true,
@@ -56,11 +57,14 @@ export default {
       );
       this.refresh();
       this.form.content = "";
+
+      // Comment Form 감추기
+      this.showCommentFormEvent();
     },
   },
   created() {
     console.log(this.noticeId);
-  }
+  },
 };
 </script>
 

@@ -53,6 +53,7 @@
       v-if="showCommentForm"
       :noticeId="this.noticeId"
       :parentId="this.commentId"
+      :showCommentFormEvent="this.onClickshowCommentFormHandler"
       >답글
     </NoticeCommentForm>
   </div>
