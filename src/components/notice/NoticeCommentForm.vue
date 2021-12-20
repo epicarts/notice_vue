@@ -58,8 +58,10 @@ export default {
       this.refresh();
       this.form.content = "";
 
+      if (this.parentId != 0) {
+        this.showCommentFormEvent();
+      }
       // Comment Form 감추기
-      this.showCommentFormEvent();
     },
   },
   created() {

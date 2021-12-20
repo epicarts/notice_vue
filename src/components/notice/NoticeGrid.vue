@@ -20,7 +20,7 @@
         </button>
       </span>
     </div>
-    <div class="notice-grid">
+    <!-- <div class="notice-grid">
       <ul>
         <li v-for="notice in api.content" :key="notice.noticeId">
           <span>{{ notice.noticeId }}</span>
@@ -31,11 +31,33 @@
           <button @click="openModal(notice.noticeId)">자세히보기</button>
         </li>
       </ul>
+    </div> -->
+
+    <div class="container-fluid">
+      <wj-flex-grid
+        :itemsSource="this.gridData"
+        :initialized="flexInitialized"
+        headers-visibility="Column"
+      >
+        <wj-flex-grid-column :header="'No'" :binding="'noticeId'" />
+        <wj-flex-grid-column
+          :header="'title'"
+          :binding="'title'"
+          width="2*"
+          @click="openModal(notice.noticeId)"
+        />
+        <wj-flex-grid-column :header="'첨부파일'" :binding="'attachmentUrl'" />
+        <wj-flex-grid-column :header="'작성자'" :binding="'author'" />
+        <wj-flex-grid-column :header="'작성일'" :binding="'created'" />
+        <wj-flex-grid-column :header="'조회수'" :binding="'numberOfComment'" />
+      </wj-flex-grid>
     </div>
+
     <div class="pagenation">
       <button @click="onClickPagenationHandler(-1)">감소</button>
       <button @click="onClickPagenationHandler(1)">증가</button>
     </div>
+
     <!-- 모달 영역 -->
     <NoticeDetailModal
       :notice-id="modalData"
@@ -47,31 +69,55 @@
 
 <script>
 import NoticeDetailModal from "@/components/notice/NoticeDetailModal";
+import "@grapecity/wijmo.styles/wijmo.css";
+// import * as wjGrid from "@grapecity/wijmo.grid";
+import { WjFlexGrid, WjFlexGridColumn } from "@grapecity/wijmo.vue2.grid";
 
 export default {
-  components: { NoticeDetailModal },
+  components: { NoticeDetailModal, WjFlexGrid, WjFlexGridColumn },
   data() {
     return {
       modalData: null,
       showModal: false,
-      api: {},
+      // api: [],
+      gridData: [],
       page: 0,
       size: 20,
       search: "",
+
+      // grid refresh를 위한 변수
+      flexgrid: null,
     };
   },
   created() {
-    this.apiDataRequest();
+    this.apiPageRequest(); // pagenation 데이터 요청
+    this.apiNoticeRequest(); // 공지사항 데이터 요청
   },
   methods: {
+    // notice API
+    apiNoticeRequest() {
+      this.$getapi("/api/notices/notice", this.getParams()).then((data) => {
+        this.gridData.unshift(
+          ...data.map((e) => {
+            e.noticeId = "공지";
+            return e;
+          })
+        );
+        this.flexgrid.refresh(); // 위즈모 gridData 새로 고침
+      });
+    },
+    // pagenation API
+    apiPageRequest() {
+      this.$getapi("/api/notices", this.getParams()).then((data) => {
+        this.gridData.push(...data.content);
+        this.flexgrid.refresh(); // 위즈모 gridData 새로 고침
+      });
+    },
     // pagenation
     onClickPagenationHandler(count) {
+      console.log(this.gridData);
       this.page += count;
-      this.apiDataRequest();
-    },
-    // API
-    async apiDataRequest() {
-      this.api = await this.$getapi("/api/notices", this.getParams());
+      this.apiPageRequest();
     },
     getParams() {
       return {
@@ -84,6 +130,13 @@ export default {
     openModal(data) {
       this.modalData = data;
       this.showModal = true;
+    },
+    // flexInitialized: (flexgrid) => {
+    //   this.flexgriddd = flexgrid.CollectionView;
+    //   console.log(flexgrid);
+    // },
+    flexInitialized: function (e) {
+      this.flexgrid = e.collectionView;
     },
   },
 };
