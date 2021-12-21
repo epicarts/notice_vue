@@ -32,7 +32,7 @@ export default {
   background-color: #e4e8ec;
   box-shadow: 0 0 6px 0 var(--black-24-12);
   padding-top: 6px;
-  height: calc(100vh - 85px);
+  height: calc(100vh - 100px);
 }
 
 .lnb-layer {
