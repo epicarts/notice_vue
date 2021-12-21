@@ -114,8 +114,8 @@ export default {
   methods: {
     // 검색
     async submit(e) {
-      console.log(e);
       this.search = e.target.NoticeSearchValue.value;
+      this.page = 1; // 검색을 하므로 페이지를 초기화
       this.getApiAndrefresh();
     },
     // 페이지네이션(pagenation)
