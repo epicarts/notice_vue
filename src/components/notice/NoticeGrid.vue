@@ -115,9 +115,10 @@ export default {
     },
     // pagenation
     onClickPagenationHandler(count) {
-      console.log(this.gridData);
+      this.gridData.splice(0);
       this.page += count;
       this.apiPageRequest();
+      this.apiNoticeRequest();
     },
     getParams() {
       return {
