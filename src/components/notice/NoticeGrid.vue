@@ -28,7 +28,7 @@
         :isReadOnly="true"
         headers-visibility="Column"
       >
-        <wj-flex-grid-column :header="'No'">
+        <wj-flex-grid-column :header="'No'" align="center" width="2*">
           <wj-flex-grid-cell-template cellType="Cell" v-slot="cell">
             <span v-if="cell.item.isNotice" style="font-weight: bold">
               {{ "공지" }}
@@ -41,7 +41,8 @@
 
         <wj-flex-grid-column
           :header="'제목'"
-          width="2*"
+          align="center"
+          width="13*"
           @click="openModal(notice.noticeId)"
         >
           <wj-flex-grid-cell-template cellType="Cell" v-slot="cell">
@@ -51,10 +52,30 @@
           </wj-flex-grid-cell-template>
         </wj-flex-grid-column>
 
-        <wj-flex-grid-column :header="'첨부파일'" :binding="'attachmentUrl'" />
-        <wj-flex-grid-column :header="'작성자'" :binding="'author'" />
-        <wj-flex-grid-column :header="'작성일'" :binding="'created'" />
-        <wj-flex-grid-column :header="'조회수'" :binding="'views'" />
+        <wj-flex-grid-column
+          width="3*"
+          :header="'첨부파일'"
+          :binding="'attachmentUrl'"
+          align="center"
+        />
+        <wj-flex-grid-column
+          width="4*"
+          :header="'작성자'"
+          :binding="'author'"
+          align="center"
+        />
+        <wj-flex-grid-column
+          width="4*"
+          :header="'작성일'"
+          :binding="'created'"
+          align="center"
+        />
+        <wj-flex-grid-column
+          width="2*"
+          :header="'조회수'"
+          :binding="'views'"
+          align="center"
+        />
       </wj-flex-grid>
     </div>
 
@@ -103,6 +124,7 @@ export default {
       gridData: [],
       page: 1,
       search: "",
+      size: 10,
       totalPages: 0,
       // grid refresh를 위한 이벤트 객체 저장
       flexgridCollectionView: null,
@@ -213,5 +235,54 @@ export default {
 
 .open-modal-cell {
   cursor: pointer;
+}
+
+.pagenation-warp {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+/* 위즈모 그리드 CSS */
+
+.wj-header {
+  border-right: none;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+}
+
+.wj-header::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  height: 20px;
+  width: 1px;
+  background-color: #d7dce3;
+}
+
+.wj-cell.wj-header {
+  background-color: #fff;
+}
+
+div[wj-part="ch"] {
+  box-shadow: 0 1px 6px 0 rgb(0 0 0 / 26%);
+}
+
+.wj-cell {
+  padding: 9px;
+}
+
+.wj-cell {
+  font-size: 12px;
+  color: #111;
+  box-sizing: border-box;
+  border: none;
+  box-shadow: inset -1px -1px 0 0 var(--pale-grey);
+  background-color: #f1f5f9;
+}
+
+.wj-cell.wj-alt {
+  background: #fff;
 }
 </style>

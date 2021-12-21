@@ -20,7 +20,7 @@
         class="pageBtn"
         @click="onClickPageButton(index)"
       >
-        {{ index }}
+        <span>{{ index }}</span>
       </li>
     </ul>
     <div class="allow-btn-group">
@@ -133,6 +133,10 @@ export default {
   width: 24px;
   height: 24px;
   cursor: pointer;
+}
+
+.page-btn-list span {
+  font-size: 13px;
 }
 
 .allow-btn-group {
