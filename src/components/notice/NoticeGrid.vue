@@ -37,15 +37,32 @@
       <wj-flex-grid
         :itemsSource="this.gridData"
         :initialized="flexInitialized"
+        :isReadOnly="true"
         headers-visibility="Column"
       >
-        <wj-flex-grid-column :header="'No'" :binding="'noticeId'" />
+        <wj-flex-grid-column :header="'No'">
+          <wj-flex-grid-cell-template cellType="Cell" v-slot="cell">
+            <span v-if="cell.item.isNotice" style="font-weight: bold">
+              {{ "공지" }}
+            </span>
+            <span v-else>
+              {{ cell.item.noticeId }}
+            </span>
+          </wj-flex-grid-cell-template>
+        </wj-flex-grid-column>
+
         <wj-flex-grid-column
-          :header="'title'"
-          :binding="'title'"
+          :header="'제목'"
           width="2*"
           @click="openModal(notice.noticeId)"
-        />
+        >
+          <wj-flex-grid-cell-template cellType="Cell" v-slot="cell">
+            <a @click="openModal(cell.item.noticeId)">
+              {{ cell.item.title }}
+            </a>
+          </wj-flex-grid-cell-template>
+        </wj-flex-grid-column>
+
         <wj-flex-grid-column :header="'첨부파일'" :binding="'attachmentUrl'" />
         <wj-flex-grid-column :header="'작성자'" :binding="'author'" />
         <wj-flex-grid-column :header="'작성일'" :binding="'created'" />
@@ -71,10 +88,19 @@
 import NoticeDetailModal from "@/components/notice/NoticeDetailModal";
 import "@grapecity/wijmo.styles/wijmo.css";
 // import * as wjGrid from "@grapecity/wijmo.grid";
-import { WjFlexGrid, WjFlexGridColumn } from "@grapecity/wijmo.vue2.grid";
+import {
+  WjFlexGrid,
+  WjFlexGridColumn,
+  WjFlexGridCellTemplate,
+} from "@grapecity/wijmo.vue2.grid";
 
 export default {
-  components: { NoticeDetailModal, WjFlexGrid, WjFlexGridColumn },
+  components: {
+    NoticeDetailModal,
+    WjFlexGrid,
+    WjFlexGridColumn,
+    WjFlexGridCellTemplate,
+  },
   data() {
     return {
       modalData: null,
@@ -99,9 +125,10 @@ export default {
         this.getParams()
       );
 
+
       this.gridData.unshift(
         ...noticeList.map((e) => {
-          e.noticeId = "공지";
+          // e.noticeId = "공지";
           return e;
         })
       );
