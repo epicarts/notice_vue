@@ -52,6 +52,7 @@ export default {
   text-align: center;
   text-decoration: none;
   background: none;
+  cursor: pointer;
 }
 
 .btn-type4 {

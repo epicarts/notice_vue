@@ -2,7 +2,7 @@
   <div class="notice-grid-layout">
     <div class="search-area">
       <span>검색</span>
-      <span class="ps-box">
+      <form @submit.prevent="submit" class="search-form">
         <input
           class="search-input"
           type="text"
@@ -10,7 +10,7 @@
           id="NoticeSearchValue"
         />
 
-        <button type="button" class="btn_init">
+        <button type="submit" class="btn_init">
           <img
             src="@/assets/btn-searchbar-search-n.svg"
             class="btn_searchbar_search_n"
@@ -18,20 +18,8 @@
           />
           <span class="blind"> 검색</span>
         </button>
-      </span>
+      </form>
     </div>
-    <!-- <div class="notice-grid">
-      <ul>
-        <li v-for="notice in api.content" :key="notice.noticeId">
-          <span>{{ notice.noticeId }}</span>
-          <span>{{ notice.title }}</span>
-          <span>{{ notice.author }}</span>
-          <span>{{ notice.created }}</span>
-          <span>{{ notice.division }}</span>
-          <button @click="openModal(notice.noticeId)">자세히보기</button>
-        </li>
-      </ul>
-    </div> -->
 
     <div class="container-fluid">
       <wj-flex-grid
@@ -124,6 +112,12 @@ export default {
     this.getApiAndrefresh();
   },
   methods: {
+    // 검색
+    async submit(e) {
+      console.log(e);
+      this.search = e.target.NoticeSearchValue.value;
+      this.getApiAndrefresh();
+    },
     // 페이지네이션(pagenation)
     updateHandler(clickPage) {
       this.page = clickPage;
@@ -131,17 +125,8 @@ export default {
     },
     // notice API
     async apiNoticeRequest() {
-      var noticeList = await this.$getapi(
-        "/api/notices/notice",
-        this.getParams()
-      );
-
-      this.gridData.unshift(
-        ...noticeList.map((e) => {
-          // e.noticeId = "공지";
-          return e;
-        })
-      );
+      var noticeList = await this.$getapi("/api/notices/notice");
+      this.gridData.unshift(...noticeList);
     },
     // pagenation API
     async apiPageRequest() {
@@ -204,8 +189,8 @@ export default {
   line-height: 16px;
 }
 
-.ps-box {
-  display: block;
+.search-form {
+  display: flex;
   width: 200px;
   height: 24px;
   border-radius: 1px;
