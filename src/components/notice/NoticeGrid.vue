@@ -79,46 +79,49 @@ export default {
     return {
       modalData: null,
       showModal: false,
-      // api: [],
       gridData: [],
       page: 0,
       size: 20,
       search: "",
 
       // grid refresh를 위한 변수
-      flexgrid: null,
+      flexgridCollectionView: null,
     };
   },
   created() {
-    this.apiPageRequest(); // pagenation 데이터 요청
-    this.apiNoticeRequest(); // 공지사항 데이터 요청
+    this.getApiAndrefresh();
   },
   methods: {
     // notice API
-    apiNoticeRequest() {
-      this.$getapi("/api/notices/notice", this.getParams()).then((data) => {
-        this.gridData.unshift(
-          ...data.map((e) => {
-            e.noticeId = "공지";
-            return e;
-          })
-        );
-        this.flexgrid.refresh(); // 위즈모 gridData 새로 고침
-      });
+    async apiNoticeRequest() {
+      var noticeList = await this.$getapi(
+        "/api/notices/notice",
+        this.getParams()
+      );
+
+      this.gridData.unshift(
+        ...noticeList.map((e) => {
+          e.noticeId = "공지";
+          return e;
+        })
+      );
     },
     // pagenation API
-    apiPageRequest() {
-      this.$getapi("/api/notices", this.getParams()).then((data) => {
-        this.gridData.push(...data.content);
-        this.flexgrid.refresh(); // 위즈모 gridData 새로 고침
-      });
+    async apiPageRequest() {
+      var PageList = await this.$getapi("/api/notices", this.getParams());
+      this.gridData.push(...PageList.content);
     },
+    async getApiAndrefresh() {
+      await this.apiPageRequest();
+      await this.apiNoticeRequest();
+      this.flexgridCollectionView.refresh(); // 위즈모 gridData 새로 고침
+    },
+
     // pagenation
-    onClickPagenationHandler(count) {
+    async onClickPagenationHandler(count) {
       this.gridData.splice(0);
       this.page += count;
-      this.apiPageRequest();
-      this.apiNoticeRequest();
+      this.getApiAndrefresh();
     },
     getParams() {
       return {
@@ -132,12 +135,8 @@ export default {
       this.modalData = data;
       this.showModal = true;
     },
-    // flexInitialized: (flexgrid) => {
-    //   this.flexgriddd = flexgrid.CollectionView;
-    //   console.log(flexgrid);
-    // },
     flexInitialized: function (e) {
-      this.flexgrid = e.collectionView;
+      this.flexgridCollectionView = e.collectionView;
     },
   },
 };
