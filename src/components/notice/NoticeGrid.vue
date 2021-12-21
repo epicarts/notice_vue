@@ -57,7 +57,7 @@
           @click="openModal(notice.noticeId)"
         >
           <wj-flex-grid-cell-template cellType="Cell" v-slot="cell">
-            <a @click="openModal(cell.item.noticeId)">
+            <a @click="openModal(cell.item.noticeId)" class="open-modal-cell">
               {{ cell.item.title }}
             </a>
           </wj-flex-grid-cell-template>
@@ -224,5 +224,9 @@ export default {
 .notice-grid-layout {
   display: flex;
   flex-direction: column;
+}
+
+.open-modal-cell {
+  cursor: pointer;
 }
 </style>
