@@ -66,13 +66,17 @@
         <wj-flex-grid-column :header="'첨부파일'" :binding="'attachmentUrl'" />
         <wj-flex-grid-column :header="'작성자'" :binding="'author'" />
         <wj-flex-grid-column :header="'작성일'" :binding="'created'" />
-        <wj-flex-grid-column :header="'조회수'" :binding="'numberOfComment'" />
+        <wj-flex-grid-column :header="'조회수'" :binding="'views'" />
       </wj-flex-grid>
     </div>
 
-    <div class="pagenation">
-      <button @click="onClickPagenationHandler(-1)">감소</button>
-      <button @click="onClickPagenationHandler(1)">증가</button>
+    <!-- pagenation 영역 -->
+    <div class="pagenation-warp">
+      <PagenationBar
+        :totalPages="this.totalPages"
+        :currentPage="page"
+        @update:currentPage="updateHandler"
+      />
     </div>
 
     <!-- 모달 영역 -->
@@ -86,6 +90,8 @@
 
 <script>
 import NoticeDetailModal from "@/components/notice/NoticeDetailModal";
+import PagenationBar from "@/components/common/PagenationBar.vue";
+
 import "@grapecity/wijmo.styles/wijmo.css";
 // import * as wjGrid from "@grapecity/wijmo.grid";
 import {
@@ -100,17 +106,17 @@ export default {
     WjFlexGrid,
     WjFlexGridColumn,
     WjFlexGridCellTemplate,
+    PagenationBar,
   },
   data() {
     return {
       modalData: null,
       showModal: false,
       gridData: [],
-      page: 0,
-      size: 20,
+      page: 1,
       search: "",
-
-      // grid refresh를 위한 변수
+      totalPages: 0,
+      // grid refresh를 위한 이벤트 객체 저장
       flexgridCollectionView: null,
     };
   },
@@ -118,13 +124,17 @@ export default {
     this.getApiAndrefresh();
   },
   methods: {
+    // 페이지네이션(pagenation)
+    updateHandler(clickPage) {
+      this.page = clickPage;
+      this.getApiAndrefresh();
+    },
     // notice API
     async apiNoticeRequest() {
       var noticeList = await this.$getapi(
         "/api/notices/notice",
         this.getParams()
       );
-
 
       this.gridData.unshift(
         ...noticeList.map((e) => {
@@ -137,22 +147,18 @@ export default {
     async apiPageRequest() {
       var PageList = await this.$getapi("/api/notices", this.getParams());
       this.gridData.push(...PageList.content);
+      this.totalPages = PageList.totalPages;
     },
     async getApiAndrefresh() {
+      this.gridData.splice(0);
       await this.apiPageRequest();
       await this.apiNoticeRequest();
       this.flexgridCollectionView.refresh(); // 위즈모 gridData 새로 고침
     },
-
-    // pagenation
-    async onClickPagenationHandler(count) {
-      this.gridData.splice(0);
-      this.page += count;
-      this.getApiAndrefresh();
-    },
     getParams() {
       return {
-        page: this.page,
+        // API 요청시 page는 0 부터 시작함으로 -1을 해줌
+        page: this.page - 1,
         size: this.size,
         search: this.search,
       };
