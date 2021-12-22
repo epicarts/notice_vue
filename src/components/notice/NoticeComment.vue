@@ -50,7 +50,7 @@
         placeholder="댓글을 입력해주세요"
         maxlength="255"
         required="required"
-        @keyup.enter="submit"
+        @keyup.enter="onClickUpdateRequest"
         @keydown.enter.prevent
       ></textarea>
 
@@ -132,9 +132,9 @@ export default {
   },
   watch: {
     commentContent() {
-      this.form.content = this.commentContent; 
-    }
-  }
+      this.form.content = this.commentContent;
+    },
+  },
 };
 </script>
 
