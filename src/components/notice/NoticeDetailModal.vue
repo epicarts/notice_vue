@@ -97,7 +97,7 @@
                       >
                         <NoticeComment
                           :isChildComment="true"
-                          :commentId="comment.commentId"
+                          :commentId="childComment.commentId"
                           :noticeId="api.noticeId"
                         >
                           <template v-slot:division>

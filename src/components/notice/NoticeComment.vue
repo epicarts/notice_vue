@@ -22,7 +22,9 @@
         <button class="btn_init btn-type4" @click="onClickFixModeHandler">
           <span>수정</span>
         </button>
-        <button class="btn_init btn-type4"><span>삭제</span></button>
+        <button class="btn_init btn-type4" @click="onClickDeleteRequest">
+          <span>삭제</span>
+        </button>
         <button
           class="btn_init btn-type4"
           v-if="!isChildComment"
@@ -84,12 +86,19 @@ export default {
       required: true,
     },
   },
+  inject: ["refresh"],
   methods: {
     onClickFixModeHandler() {
       this.isFixMode = !this.isFixMode;
     },
     onClickshowCommentFormHandler() {
       this.showCommentForm = !this.showCommentForm;
+    },
+    async onClickDeleteRequest() {
+      this.api = await this.$deleteApi(
+        `/api/notices/${this.noticeId}/comments/${this.commentId}`
+      );
+      this.refresh();
     },
   },
 };

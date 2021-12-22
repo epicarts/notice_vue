@@ -33,5 +33,15 @@ export default {
           console.log(e);
         });
     },
+    async $deleteApi(url) {
+      return await axios
+        .delete(url)
+        .then(function (response) {
+          return response.data;
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    },
   },
 };
