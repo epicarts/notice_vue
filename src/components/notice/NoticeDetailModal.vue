@@ -85,6 +85,9 @@
                       <template v-slot:content>
                         {{ comment.content }}
                       </template>
+                      <template v-slot:date>
+                        {{ comment.created }}
+                      </template>
                     </NoticeComment>
 
                     <!-- 대댓글 -->
@@ -113,6 +116,9 @@
                           </template>
                           <template v-slot:content>
                             {{ childComment.content }}
+                          </template>
+                          <template v-slot:date>
+                            {{ childComment.created }}
                           </template>
                         </NoticeComment>
                       </li>
