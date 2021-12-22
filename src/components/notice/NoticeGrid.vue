@@ -90,6 +90,8 @@
 
     <!-- 모달 영역 -->
     <NoticeDetailModal
+      tabindex="0"
+      @keyup.esc="showModal = false"
       :notice-id="modalData"
       v-if="showModal"
       @close="showModal = false"

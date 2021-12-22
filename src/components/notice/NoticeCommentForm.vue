@@ -7,18 +7,18 @@
       >
       <!-- slot -->
     </div>
+
     <div class="commet-textarea">
       <textarea
         v-model="form.content"
         name="comment"
-        id="comment"
-        cols="30"
-        rows="10"
-        placeholder="Text Placeholder"
+        :placeholder="'댓글을 입력해주세요'"
+        @keyup.enter="submit"
+        @keydown.enter.prevent
         maxlength="255"
         required="required"
       ></textarea>
-      <button type="submit">등록</button>
+      <button class="btn_init" type="submit">등록</button>
     </div>
   </form>
 </template>
