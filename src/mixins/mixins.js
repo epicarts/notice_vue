@@ -43,5 +43,15 @@ export default {
           console.log(e);
         });
     },
+    async $patchApi(url, data) {
+      return await axios
+        .patch(url, data)
+        .then(function (response) {
+          return response.data;
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    },
   },
 };

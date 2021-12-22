@@ -71,6 +71,7 @@
                     <NoticeComment
                       :commentId="comment.commentId"
                       :noticeId="api.noticeId"
+                      :commentContent="comment.content"
                     >
                       <template v-slot:division>
                         {{ comment.division }}
@@ -99,6 +100,7 @@
                           :isChildComment="true"
                           :commentId="childComment.commentId"
                           :noticeId="api.noticeId"
+                          :commentContent="childComment.content"
                         >
                           <template v-slot:division>
                             {{ childComment.division }}

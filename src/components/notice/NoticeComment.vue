@@ -1,5 +1,5 @@
 <template>
-  <div class="comment-area">
+  <form @submit.prevent="submit" class="comment-area">
     <div class="comment-title-area">
       <p>
         <slot name="division">드림메디칼</slot>
@@ -12,7 +12,13 @@
 
       <!-- 저장 취소 -->
       <div v-if="isFixMode">
-        <button class="btn_init btn-type4"><span>저장</span></button>
+        <button
+          class="btn_init btn-type4"
+          type="submit"
+          @click="onClickUpdateRequest"
+        >
+          <span>저장</span>
+        </button>
         <button class="btn_init btn-type4" @click="onClickFixModeHandler">
           <span>취소</span>
         </button>
@@ -36,19 +42,25 @@
     </div>
 
     <!-- 댓글 수정 -->
-    <textarea
-      v-if="isFixMode"
-      name="comment"
-      cols="30"
-      rows="10"
-      placeholder="Text Placeholder"
-      maxlength="255"
-      required="required"
-    ></textarea>
-    <!-- 댓글 읽기 -->
-    <span v-else class="comment-content-area">
-      <slot name="content"> 재고 없는 상품에 대해 재고없음 처리했습니다. </slot>
-    </span>
+    <div class="commet-textarea">
+      <textarea
+        v-model="form.content"
+        v-if="isFixMode"
+        name="comment"
+        placeholder="댓글을 입력해주세요"
+        maxlength="255"
+        required="required"
+        @keyup.enter="submit"
+        @keydown.enter.prevent
+      ></textarea>
+
+      <!-- 댓글 읽기 -->
+      <span v-else class="comment-content-area">
+        <slot name="content">
+          재고 없는 상품에 대해 재고없음 처리했습니다.
+        </slot>
+      </span>
+    </div>
 
     <!-- 답글 달기 Form -->
     <NoticeCommentForm
@@ -58,7 +70,7 @@
       :showCommentFormEvent="this.onClickshowCommentFormHandler"
       >답글
     </NoticeCommentForm>
-  </div>
+  </form>
 </template>
 
 <script>
@@ -70,6 +82,9 @@ export default {
     return {
       isFixMode: false,
       showCommentForm: false,
+      form: {
+        content: this.commentContent,
+      },
     };
   },
   props: {
@@ -85,6 +100,11 @@ export default {
       type: Number,
       required: true,
     },
+    commentContent: {
+      type: String,
+      required: false,
+      default: "내용",
+    },
   },
   inject: ["refresh"],
   methods: {
@@ -94,6 +114,15 @@ export default {
     onClickshowCommentFormHandler() {
       this.showCommentForm = !this.showCommentForm;
     },
+    async onClickUpdateRequest() {
+      this.api = await this.$patchApi(
+        `/api/notices/${this.noticeId}/comments/${this.commentId}/content`,
+        this.form
+      );
+      this.form.content = "";
+      this.onClickFixModeHandler();
+      this.refresh();
+    },
     async onClickDeleteRequest() {
       this.api = await this.$deleteApi(
         `/api/notices/${this.noticeId}/comments/${this.commentId}`
@@ -101,10 +130,32 @@ export default {
       this.refresh();
     },
   },
+  watch: {
+    commentContent() {
+      this.form.content = this.commentContent; 
+    }
+  }
 };
 </script>
 
 <style scoped>
+.commet-textarea textarea {
+  width: 100%;
+  border: solid 1px #bac1c9;
+  padding: 6px 8px;
+  resize: none;
+  font-size: 12px;
+  line-height: 1.42;
+  letter-spacing: -1px;
+  height: 42px;
+  margin-bottom: 3px;
+}
+
+.commet-textarea {
+  width: 100%;
+  text-align: left;
+}
+
 .comment-area {
   display: flex;
   flex-direction: column;
