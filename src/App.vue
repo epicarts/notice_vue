@@ -73,10 +73,7 @@ export default {
   height: 20px;
   border: solid 1px #506574;
   background-color: #5d7b92;
-  font-size: 11px;
-  line-height: 1;
   font-weight: bold;
-  letter-spacing: -1px;
   color: #ffffff;
 }
 
