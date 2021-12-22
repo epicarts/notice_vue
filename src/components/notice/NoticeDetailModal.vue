@@ -129,7 +129,7 @@
             </div>
 
             <div class="modal-footer">
-              <button class="modal-default-button" @click="$emit('close')">
+              <button class="modal-default-button btn_init" @click="$emit('close')">
                 <span>목록</span>
               </button>
             </div>
