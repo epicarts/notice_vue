@@ -55,8 +55,8 @@
                   v-if="api.noticeId"
                   :noticeId="api.noticeId"
                   class="notice-comment-form"
-                  >댓글</NoticeCommentForm
-                >
+                  :commentText="'댓글'"
+                />
               </div>
 
               <!-- 공지사항 표시 영역 -->
@@ -129,7 +129,10 @@
             </div>
 
             <div class="modal-footer">
-              <button class="modal-default-button btn_init" @click="$emit('close')">
+              <button
+                class="modal-default-button btn_init"
+                @click="$emit('close')"
+              >
                 <span>목록</span>
               </button>
             </div>

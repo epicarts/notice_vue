@@ -1,9 +1,9 @@
 <template>
   <form @submit.prevent="submit" class="comment-form">
     <div class="comment-title-area">
-      <span class="comment-title"> <slot>글</slot> 작성 </span>
+      <span class="comment-title"> <span>{{ this.commentText }}</span> 작성 </span>
       <span class="comment-form-help"
-        >모든 <slot>글</slot>은 비밀글 작성만 가능합니다.</span
+        >모든 <span>{{ this.commentText }}</span> 은 비밀글 작성만 가능합니다.</span
       >
       <!-- slot -->
     </div>
@@ -12,7 +12,7 @@
       <textarea
         v-model="form.content"
         name="comment"
-        :placeholder="'댓글을 입력해주세요'"
+        :placeholder="this.commentText + '을 입력해주세요'"
         @keyup.enter="submit"
         @keydown.enter.prevent
         maxlength="255"
@@ -46,6 +46,11 @@ export default {
       type: Number,
       required: false,
       default: 0,
+    },
+    commentText: {
+      type: String,
+      required: false,
+      default: "글",
     },
   },
   inject: ["refresh"],

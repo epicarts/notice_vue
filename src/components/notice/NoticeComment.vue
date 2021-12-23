@@ -68,8 +68,8 @@
       :noticeId="this.noticeId"
       :parentId="this.commentId"
       :showCommentFormEvent="this.onClickshowCommentFormHandler"
-      >답글
-    </NoticeCommentForm>
+      :commentText="'답글'"
+    />
   </form>
 </template>
 
