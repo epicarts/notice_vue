@@ -72,6 +72,7 @@
                       :commentId="comment.commentId"
                       :noticeId="api.noticeId"
                       :commentContent="comment.content"
+                      :isDeleted="comment.isDeleted"
                     >
                       <template v-slot:division>
                         {{ comment.division }}
@@ -104,6 +105,7 @@
                           :commentId="childComment.commentId"
                           :noticeId="api.noticeId"
                           :commentContent="childComment.content"
+                          :isDeleted="childComment.isDeleted"
                         >
                           <template v-slot:division>
                             {{ childComment.division }}

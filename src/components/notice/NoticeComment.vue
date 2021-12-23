@@ -25,16 +25,17 @@
       </div>
       <!-- 수정 삭제 답글달기 -->
       <div v-else>
-        <button class="btn_init btn-type4" @click="onClickFixModeHandler">
+        <button class="btn_init btn-type4" @click="onClickFixModeHandler" :disabled="isDeleted" >
           <span>수정</span>
         </button>
-        <button class="btn_init btn-type4" @click="onClickDeleteRequest">
+        <button class="btn_init btn-type4" @click="onClickDeleteRequest" :disabled="isDeleted">
           <span>삭제</span>
         </button>
         <button
           class="btn_init btn-type4"
           v-if="!isChildComment"
           @click="onClickshowCommentFormHandler"
+          :disabled="isDeleted"
         >
           <span>답글달기</span>
         </button>
@@ -105,6 +106,10 @@ export default {
       required: false,
       default: "내용",
     },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    }
   },
   inject: ["refresh"],
   methods: {
