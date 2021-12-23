@@ -46,7 +46,10 @@
       >
         <wj-flex-grid-column :header="'No'" align="center" width="2*">
           <wj-flex-grid-cell-template cellType="Cell" v-slot="cell">
-            <span v-if="cell.item.isNotice" style="font-weight: bold">
+            <span
+              v-if="cell.item.isNotice"
+              :class="{ emphasis: cell.item.emphasis === true }"
+            >
               {{ "공지" }}
             </span>
             <span v-else>
@@ -62,7 +65,11 @@
           @click="openModal(notice.noticeId)"
         >
           <wj-flex-grid-cell-template cellType="Cell" v-slot="cell">
-            <a @click="openModal(cell.item.noticeId)" class="open-modal-cell">
+            <a
+              @click="openModal(cell.item.noticeId)"
+              class="open-modal-cell"
+              :class="{ emphasis: cell.item.emphasis === true }"
+            >
               {{ cell.item.title }}
               <span
                 v-if="cell.item.numberOfComment"
@@ -178,7 +185,12 @@ export default {
     },
     // notice API
     async apiNoticeRequest() {
-      return await this.$getapi("/api/notices/notice");
+      return await this.$getapi("/api/notices/notice").then((notices) => {
+        notices.map((notice) => {
+          notice["emphasis"] = true;
+        });
+        return notices;
+      });
     },
     // pagenation API
     async apiPageRequest() {
@@ -354,5 +366,9 @@ div[wj-part="ch"] {
   height: 12px;
   margin: 4px 10px 1px;
   background-color: #c9c9c9;
+}
+
+.emphasis {
+  font-weight: bold;
 }
 </style>
