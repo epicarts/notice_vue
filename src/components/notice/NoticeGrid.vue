@@ -138,37 +138,44 @@ export default {
       flexgridCollectionView: null,
     };
   },
-  created() {
-    this.getApiAndrefresh();
+  mounted() {
+    this.refreshGridData();
   },
   methods: {
     // 검색
     async submit(e) {
       this.search = e.target.NoticeSearchValue.value;
       this.page = 1; // 검색을 하므로 페이지를 초기화
-      this.getApiAndrefresh();
+      this.refreshGridData();
     },
     // 페이지네이션(pagenation)
     updateHandler(clickPage) {
       this.page = clickPage;
-      this.getApiAndrefresh();
+      this.refreshGridData();
     },
     // notice API
     async apiNoticeRequest() {
-      var noticeList = await this.$getapi("/api/notices/notice");
-      this.gridData.unshift(...noticeList);
+      return await this.$getapi("/api/notices/notice");
     },
     // pagenation API
     async apiPageRequest() {
-      var PageList = await this.$getapi("/api/notices", this.getParams());
-      this.gridData.push(...PageList.content);
-      this.totalPages = PageList.totalPages;
+      return await this.$getapi("/api/notices", this.getParams());
     },
-    async getApiAndrefresh() {
-      this.gridData.splice(0);
-      await this.apiPageRequest();
-      await this.apiNoticeRequest();
-      this.flexgridCollectionView.refresh(); // 위즈모 gridData 새로 고침
+    refreshGridData() {
+      // 2개의 API 요청이 끝날때 까지 가다림
+      Promise.all([this.apiPageRequest(), this.apiNoticeRequest()])
+        .then(([pageList, noticeList]) => {
+          this.gridData.splice(0);
+
+          this.gridData.push(...pageList.content);
+          this.gridData.unshift(...noticeList);
+
+          this.totalPages = pageList.totalPages;
+          this.flexgridCollectionView.refresh(); // 위즈모 gridData 새로 고침
+        })
+        .catch((reason) => {
+          console.log(reason);
+        });
     },
     getParams() {
       return {
