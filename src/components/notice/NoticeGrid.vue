@@ -48,6 +48,12 @@
           <wj-flex-grid-cell-template cellType="Cell" v-slot="cell">
             <a @click="openModal(cell.item.noticeId)" class="open-modal-cell">
               {{ cell.item.title }}
+              <span
+                v-if="cell.item.numberOfComment"
+                class="comment-number-view"
+              >
+                [{{ cell.item.numberOfComment }}]
+              </span>
             </a>
           </wj-flex-grid-cell-template>
         </wj-flex-grid-column>
@@ -185,6 +191,10 @@ export default {
 </script>
 
 <style>
+.comment-number-view {
+  color: #176de2;
+}
+
 /* 검색바 영역 */
 .search-area {
   display: flex;
