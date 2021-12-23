@@ -35,9 +35,15 @@ export default {
 .page-size-layout {
   display: flex;
   align-content: center;
+  margin-right: 10px;
+  align-items: center;
 }
 
 .page-size-layout span {
   margin-right: 5px;
+}
+
+.page-size-layout select {
+  height: 20px;
 }
 </style>

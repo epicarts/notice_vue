@@ -1,9 +1,21 @@
 <template>
   <div class="notice-grid-layout">
     <div class="grid-header-area">
-      <PageSize :pageSize="pageSize" @update:pageSize="updatePageSizeHandler" />
-
+      <div class="notice-count-warp">
+        <span class="notice-count-title">글 등록현황</span>
+        <span>
+          공지 글 <strong> {{ this.totalNoticeSize }} </strong> 건
+        </span>
+        <span class="sep-bar"></span>
+        <span
+          >조회 글 <strong> {{ this.totalElements }}</strong> 건
+        </span>
+      </div>
       <div class="search-area">
+        <PageSize
+          :pageSize="pageSize"
+          @update:pageSize="updatePageSizeHandler"
+        />
         <span>검색</span>
         <form @submit.prevent="submit" class="search-form">
           <input
@@ -140,7 +152,8 @@ export default {
       search: "",
       pageSize: 10,
       totalPages: 0,
-      // grid refresh를 위한 이벤트 객체 저장
+      totalElements: 0,
+      totalNoticeSize: 0,
       flexgridCollectionView: null,
     };
   },
@@ -180,6 +193,8 @@ export default {
           this.gridData.push(...pageList.content);
           this.gridData.unshift(...noticeList);
 
+          this.totalNoticeSize = noticeList.length;
+          this.totalElements = pageList.totalElements;
           this.totalPages = pageList.totalPages;
           this.flexgridCollectionView.refresh(); // 위즈모 gridData 새로 고침
         })
@@ -216,7 +231,7 @@ export default {
 .grid-header-area {
   display: flex;
   align-items: center;
-  align-self: flex-end;
+  justify-content: space-between;
 }
 
 .search-area {
@@ -319,5 +334,25 @@ div[wj-part="ch"] {
 
 .wj-cell.wj-alt {
   background: #fff;
+}
+
+/* 글 등록 현황 */
+.notice-count-warp {
+  align-items: center;
+  display: flex;
+}
+
+.notice-count-title {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0 10px;
+}
+
+.sep-bar {
+  display: inline-block;
+  width: 1px;
+  height: 12px;
+  margin: 4px 10px 1px;
+  background-color: #c9c9c9;
 }
 </style>
