@@ -142,6 +142,10 @@ table {
   border-spacing: 0;
 }
 
+span {
+  font-size: 13px;
+}
+
 .blind {
   position: absolute;
   clip: rect(0 0 0 0);

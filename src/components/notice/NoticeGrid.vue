@@ -1,24 +1,28 @@
 <template>
   <div class="notice-grid-layout">
-    <div class="search-area">
-      <span>검색</span>
-      <form @submit.prevent="submit" class="search-form">
-        <input
-          class="search-input"
-          type="text"
-          placeholder="제목, 내용, 작성자 검색"
-          id="NoticeSearchValue"
-        />
+    <div class="grid-header-area">
+      <PageSize :pageSize="pageSize" @update:pageSize="updatePageSizeHandler" />
 
-        <button type="submit" class="btn_init">
-          <img
-            src="@/assets/btn-searchbar-search-n.svg"
-            class="btn_searchbar_search_n"
-            alt="검색 버튼 이미지"
+      <div class="search-area">
+        <span>검색</span>
+        <form @submit.prevent="submit" class="search-form">
+          <input
+            class="search-input"
+            type="text"
+            placeholder="제목, 내용, 작성자 검색"
+            id="NoticeSearchValue"
           />
-          <span class="blind"> 검색</span>
-        </button>
-      </form>
+
+          <button type="submit" class="btn_init">
+            <img
+              src="@/assets/btn-searchbar-search-n.svg"
+              class="btn_searchbar_search_n"
+              alt="검색 버튼 이미지"
+            />
+            <span class="blind"> 검색</span>
+          </button>
+        </form>
+      </div>
     </div>
 
     <div class="container-fluid">
@@ -108,6 +112,7 @@
 <script>
 import NoticeDetailModal from "@/components/notice/NoticeDetailModal";
 import PagenationBar from "@/components/common/PagenationBar.vue";
+import PageSize from "@/components/common/PagenationPageSize.vue";
 
 import "@grapecity/wijmo.styles/wijmo.css";
 // import * as wjGrid from "@grapecity/wijmo.grid";
@@ -124,6 +129,7 @@ export default {
     WjFlexGridColumn,
     WjFlexGridCellTemplate,
     PagenationBar,
+    PageSize,
   },
   data() {
     return {
@@ -132,7 +138,7 @@ export default {
       gridData: [],
       page: 1,
       search: "",
-      size: 10,
+      pageSize: 10,
       totalPages: 0,
       // grid refresh를 위한 이벤트 객체 저장
       flexgridCollectionView: null,
@@ -151,6 +157,10 @@ export default {
     // 페이지네이션(pagenation)
     updateHandler(clickPage) {
       this.page = clickPage;
+      this.refreshGridData();
+    },
+    updatePageSizeHandler(selectPageSize) {
+      this.pageSize = selectPageSize;
       this.refreshGridData();
     },
     // notice API
@@ -181,7 +191,7 @@ export default {
       return {
         // API 요청시 page는 0 부터 시작함으로 -1을 해줌
         page: this.page - 1,
-        size: this.size,
+        size: this.pageSize,
         search: this.search,
       };
     },
@@ -203,6 +213,12 @@ export default {
 }
 
 /* 검색바 영역 */
+.grid-header-area {
+  display: flex;
+  align-items: center;
+  align-self: flex-end;
+}
+
 .search-area {
   display: flex;
   align-self: flex-end;
