@@ -85,6 +85,36 @@ export default {
   background-color: #e8e8e8;
 }
 
+.btn-type5 {
+  vertical-align: middle;
+  min-width: 32px;
+  height: 20px;
+  padding: 1px 6px 4px;
+  border: solid 1px #b1b5bb;
+  background-color: #ffffff;
+  font-size: 11px;
+  font-weight: bold;
+  color: #525c68;
+  margin-left: 2px;
+  color: var(--slate-grey);
+}
+
+.btn-type5:hover {
+  height: 20px;
+  border: solid 1px #506574;
+  background-color: #5d7b92;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.btn-type5:disabled {
+  color: #b9bdc2;
+  cursor: text;
+  border-radius: 2px;
+  border: solid 1px #b9bdc2;
+  background-color: #e8e8e8;
+}
+
 body {
   overflow: hidden;
   background-color: #cad1da;

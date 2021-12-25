@@ -107,6 +107,13 @@
           :binding="'views'"
           align="center"
         />
+        <wj-flex-grid-column :header="'삭제'" align="center" width="2*">
+          <wj-flex-grid-cell-template cellType="Cell" v-slot="cell">
+            <button class="btn_init btn-type5" @click="onClickNoticeDelete(cell.item.noticeId)"> 삭제
+
+            </button>
+          </wj-flex-grid-cell-template>
+        </wj-flex-grid-column>
       </wj-flex-grid>
     </div>
 
@@ -182,6 +189,9 @@ export default {
     this.refreshGridData();
   },
   methods: {
+    onClickNoticeDelete(noticeId) {
+      this.apiNoticeDeleteRequest(noticeId);
+    },
     onClickHeader(e) {
       // sortByList에 값이 있을 경우 변경
       if (this.sortbyList[e.target.innerText])
@@ -234,6 +244,11 @@ export default {
     updatePageSizeHandler(selectPageSize) {
       this.pageSize = selectPageSize;
       this.refreshGridData();
+    },
+    apiNoticeDeleteRequest(noticeId) {
+      this.$deleteApi(`/api/notices/${noticeId}`).then(()=>{
+        this.refreshGridData(); // 삭제가 완료되면 페이지 새로고침
+      })
     },
     // notice API
     async apiNoticeRequest() {
