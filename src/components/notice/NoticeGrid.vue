@@ -1,5 +1,6 @@
 <template>
   <div class="notice-grid-layout">
+    <NoticeEditorModal/>
     <div class="grid-header-area">
       <div class="notice-count-warp">
         <span class="notice-count-title">글 등록현황</span>
@@ -134,6 +135,7 @@
       v-if="showModal"
       @close="showModal = false"
     ></NoticeDetailModal>
+
   </div>
 </template>
 
@@ -141,6 +143,7 @@
 import NoticeDetailModal from "@/components/notice/NoticeDetailModal";
 import PagenationBar from "@/components/common/PagenationBar.vue";
 import PageSize from "@/components/common/PagenationPageSize.vue";
+import NoticeEditorModal from "@/components/notice/NoticeEditorModal";
 
 import "@grapecity/wijmo.styles/wijmo.css";
 // import * as wjGrid from "@grapecity/wijmo.grid";
@@ -158,6 +161,7 @@ export default {
     WjFlexGridCellTemplate,
     PagenationBar,
     PageSize,
+    NoticeEditorModal,
   },
   data() {
     return {
@@ -189,6 +193,9 @@ export default {
     this.refreshGridData();
   },
   methods: {
+    submitContent(e) {
+      console.log(e);
+    },
     onClickNoticeDelete(noticeId) {
       this.apiNoticeDeleteRequest(noticeId);
     },
@@ -246,9 +253,9 @@ export default {
       this.refreshGridData();
     },
     apiNoticeDeleteRequest(noticeId) {
-      this.$deleteApi(`/api/notices/${noticeId}`).then(()=>{
+      this.$deleteApi(`/api/notices/${noticeId}`).then(() => {
         this.refreshGridData(); // 삭제가 완료되면 페이지 새로고침
-      })
+      });
     },
     // notice API
     async apiNoticeRequest() {
