@@ -1,6 +1,5 @@
 <template>
   <div class="notice-grid-layout">
-    <NoticeEditorModal/>
     <div class="grid-header-area">
       <div class="notice-count-warp">
         <span class="notice-count-title">글 등록현황</span>
@@ -110,8 +109,11 @@
         />
         <wj-flex-grid-column :header="'삭제'" align="center" width="2*">
           <wj-flex-grid-cell-template cellType="Cell" v-slot="cell">
-            <button class="btn_init btn-type5" @click="onClickNoticeDelete(cell.item.noticeId)"> 삭제
-
+            <button
+              class="btn_init btn-type5"
+              @click="onClickNoticeDelete(cell.item.noticeId)"
+            >
+              삭제
             </button>
           </wj-flex-grid-cell-template>
         </wj-flex-grid-column>
@@ -125,6 +127,11 @@
         :currentPage="page"
         @update:currentPage="updateHandler"
       />
+
+      <!-- 글작성 버튼 -->
+      <button class="btn_init btn_wirte" @click="openEditorModal">
+        <span>글작성</span>
+      </button>
     </div>
 
     <!-- 모달 영역 -->
@@ -136,6 +143,12 @@
       @close="showModal = false"
     ></NoticeDetailModal>
 
+    <NoticeEditorModal
+      tabindex="0"
+      @keyup.esc="showEditorModal = false"
+      v-if="showEditorModal"
+      @close="showEditorModal = false"
+    />
   </div>
 </template>
 
@@ -167,6 +180,7 @@ export default {
     return {
       modalData: null,
       showModal: false,
+      showEditorModal: false,
       gridData: [],
       page: 1,
       search: "",
@@ -187,6 +201,11 @@ export default {
         작성일: "created",
         조회수: "view",
       },
+    };
+  },
+  provide() {
+    return {
+      refreshGridData: this.refreshGridData,
     };
   },
   mounted() {
@@ -255,6 +274,7 @@ export default {
     apiNoticeDeleteRequest(noticeId) {
       this.$deleteApi(`/api/notices/${noticeId}`).then(() => {
         this.refreshGridData(); // 삭제가 완료되면 페이지 새로고침
+        alert(`No: ${noticeId} 글이 삭제되었습니다`)
       });
     },
     // notice API
@@ -310,6 +330,9 @@ export default {
     openModal(data) {
       this.modalData = data;
       this.showModal = true;
+    },
+    openEditorModal() {
+      this.showEditorModal = true;
     },
     flexInitialized: function (e) {
       this.flexgridCollectionView = e.collectionView;
@@ -454,5 +477,23 @@ div[wj-part="ch"] {
 
 .emphasis {
   font-weight: bold;
+}
+
+.btn_wirte {
+  top: -29px;
+  right: 20px;
+  float: right;
+  width: 90px;
+  height: 28px;
+  border-radius: 1px;
+  box-shadow: 0 2px 3px 0 var(--black-24);
+  border: solid 1px #267995;
+  background-image: linear-gradient(to bottom, #34add4 1%, #2c8faf);
+  color: #fff;
+}
+
+.btn_wirte:hover {
+  border: solid 1px #1b86a9;
+  background-image: linear-gradient(to bottom, #2dbceb 1%, #1da1cc);
 }
 </style>
