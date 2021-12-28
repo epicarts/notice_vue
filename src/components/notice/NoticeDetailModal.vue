@@ -45,9 +45,7 @@
                   </tr>
                   <tr>
                     <td colspan="6">
-                      <div class="text-area">
-                        {{ api.content }}
-                      </div>
+                      <div class="text-area" id="noticeContent"></div>
                     </td>
                   </tr>
                 </table>
@@ -148,6 +146,7 @@
 <script>
 import NoticeCommentForm from "@/components/notice/NoticeCommentForm.vue";
 import NoticeComment from "@/components/notice/NoticeComment.vue";
+import { Quill } from "@vueup/vue-quill";
 
 export default {
   components: { NoticeCommentForm, NoticeComment },
@@ -175,6 +174,14 @@ export default {
   methods: {
     async apiDataRequest(id) {
       this.api = await this.$getapi(`/api/notices/${id}`);
+      let noticeContent = document.getElementById("noticeContent");
+
+      // Parse API data to delta Object
+      let editor = new Quill(noticeContent, { readOnly: true });
+      let delta = JSON.parse(this.api.content);
+
+      // set quill content
+      editor.setContents(delta);
     },
     refreshData() {
       this.apiDataRequest(this.noticeId);

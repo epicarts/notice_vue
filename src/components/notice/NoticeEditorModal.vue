@@ -21,14 +21,6 @@
         <li>type : {{ selectFile.type }}</li>
         <li>webkitRelativePath : {{ selectFile.webkitRelativePath }}</li>
       </ul>
-
-      <img v-if="previewImgUrl" :src="previewImgUrl" />
-      <editor-content :editor="editor" :contentType="'html'" :disabled="true" :enable="false" />
-
-      <div>
-        <hr />
-        response : {{ response }}
-      </div>
     </form>
   </div>
 </template>
@@ -102,15 +94,18 @@ export default {
     // },
 
     async formSubmit() {
-      if (this.selectFile) {
+      // 제목 필수
+      if (this.title) {
         // Form 필드 생성
         let form = new FormData();
 
-        // form.append("file", this.selectFile); // api file name
-
-        // 다중 파일
-        for (var i = 0; i < this.selectFile.length; i++) {
-          form.append("files", this.selectFile[i]);
+        // 파일객체가 있다면
+        if (this.selectFile) {
+          // form.append("file", this.selectFile); // 단일 파일
+          // 다중 파일 추가
+          for (var i = 0; i < this.selectFile.length; i++) {
+            form.append("files", this.selectFile[i]);
+          }
         }
 
         form.append(
@@ -119,6 +114,7 @@ export default {
             [
               JSON.stringify({
                 title: this.title,
+                // String 형태로 저장
                 content: JSON.stringify(this.content),
               }),
             ],
@@ -127,8 +123,6 @@ export default {
             }
           )
         );
-        // form.append("title", "제목"); // api file name
-        // form.append("content", "내용들어감"); // api file name
 
         this.isUploading = true;
 
@@ -147,7 +141,7 @@ export default {
             this.isUploading = false;
           });
       } else {
-        alert("파일을 선택해 주세요.");
+        alert("제목을 입력해 주세요.");
       }
 
       return true;
@@ -156,8 +150,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.u {
-  text-decoration: underline red;
-}
-</style>
+<style scoped></style>
