@@ -45,9 +45,7 @@
                   </tr>
                   <tr>
                     <td colspan="6">
-                      <div class="text-area">
-                        {{ api.content }}
-                      </div>
+                      <div class="text-area" id="noticeContent"></div>
                     </td>
                   </tr>
                 </table>
@@ -148,6 +146,7 @@
 <script>
 import NoticeCommentForm from "@/components/notice/NoticeCommentForm.vue";
 import NoticeComment from "@/components/notice/NoticeComment.vue";
+import { Quill } from "@vueup/vue-quill";
 
 export default {
   components: { NoticeCommentForm, NoticeComment },
@@ -175,6 +174,18 @@ export default {
   methods: {
     async apiDataRequest(id) {
       this.api = await this.$getapi(`/api/notices/${id}`);
+      let noticeContent = document.getElementById("noticeContent");
+
+      // Parse API data to delta Object
+      let editor = new Quill(noticeContent, { readOnly: true });
+
+      try {
+        let delta = JSON.parse(this.api.content);
+        editor.setContents(delta);
+      } catch (error) {
+        // parse가 안될경우 innerText 로 데이터를 넣음.
+        noticeContent.innerText = this.api.content;
+      }
     },
     refreshData() {
       this.apiDataRequest(this.noticeId);
@@ -260,7 +271,7 @@ export default {
 }
 
 .modal-container {
-  width: 1050px;
+  width: 900px;
   margin: 0px auto;
   background-color: #fff;
   border-radius: 2px;
@@ -317,6 +328,11 @@ export default {
   box-shadow: 0 2px 3px 0 var(--black-24-30);
   border: solid 1px #252c30;
   background-color: #3f484e;
+}
+
+.modal-footer button:hover {
+  border: solid 1px #484d51;
+  background-color: #5d656a;
 }
 
 .notice-comment-form {
