@@ -511,4 +511,12 @@ div[wj-part="ch"] {
   border: solid 1px #1b86a9;
   background-image: linear-gradient(to bottom, #2dbceb 1%, #1da1cc);
 }
+
+.wj-glyph-up {
+  bottom: 5px;
+}
+
+.wj-glyph-down {
+  top: 5px;
+}
 </style>
