@@ -205,7 +205,6 @@ export default {
       sortbyList: {
         No: "noticeId",
         제목: "title",
-        첨부파일: " ",
         작성자: "u.name",
         작성일: "created",
         조회수: "view",
@@ -221,25 +220,23 @@ export default {
     this.refreshGridData();
   },
   methods: {
-    submitContent(e) {
-      console.log(e);
-    },
     onClickNoticeDelete(noticeId) {
       this.apiNoticeDeleteRequest(noticeId);
     },
     onClickHeader(e) {
       // sortByList에 값이 있을 경우 변경
-      if (this.sortbyList[e.target.innerText])
+      if (this.sortbyList[e.target.innerText]) {
         this.sort.headerText = e.target.innerText;
 
-      // 클릭 이벤트 발생시 내림차순, 오름차순을 변경
-      if (this.sort.asc == false) {
-        this.sort.asc = true;
-      } else if (this.sort.asc == true) {
-        this.sort.asc = false;
-      }
+        // 클릭 이벤트 발생시 내림차순, 오름차순을 변경
+        if (this.sort.asc == false) {
+          this.sort.asc = true;
+        } else if (this.sort.asc == true) {
+          this.sort.asc = false;
+        }
 
-      this.refreshGridData();
+        this.refreshGridData();
+      }
     },
     itemFormatter(panel, ri, ci, cell) {
       // header 조건 & cell의 헤더 텍스트와 onClick에 등록된 Text가 같은가
