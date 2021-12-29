@@ -39,8 +39,14 @@
                   <tr>
                     <th>첨부파일</th>
                     <td colspan="5">
-                      <a href="#">공지사항문서1</a>
-                      <a href="#">공지사항 이미지</a>
+                      <a
+                        v-for="attachment in api.attachments"
+                        :key="attachment.attachmentId"
+                        :href="attachment.fileUrl"
+                        @click.prevent="downloadAttachment(attachment)"
+                      >
+                        {{ attachment.originFileName }}
+                      </a>
                     </td>
                   </tr>
                   <tr>
@@ -147,6 +153,7 @@
 import NoticeCommentForm from "@/components/notice/NoticeCommentForm.vue";
 import NoticeComment from "@/components/notice/NoticeComment.vue";
 import { Quill } from "@vueup/vue-quill";
+import axios from "axios";
 
 export default {
   components: { NoticeCommentForm, NoticeComment },
@@ -189,6 +196,19 @@ export default {
     },
     refreshData() {
       this.apiDataRequest(this.noticeId);
+    },
+    downloadAttachment({ fileUrl, originFileName }) {
+      axios
+        .get(new URL(fileUrl).pathname, { responseType: "blob" }) //CORS 문제 해결을 위해 fileUrl 추출
+        .then((response) => {
+          const blob = new Blob([response.data]);
+          const link = document.createElement("a");
+          link.href = URL.createObjectURL(blob);
+          link.download = originFileName;
+          link.click();
+          URL.revokeObjectURL(link.href);
+        })
+        .catch(console.error);
     },
   },
 };

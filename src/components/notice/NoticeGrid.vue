@@ -85,10 +85,19 @@
 
         <wj-flex-grid-column
           width="3*"
-          :header="'첨부파일'"
-          :binding="'attachmentUrl'"
+          :header="'첨부파일 여부'"
+          :binding="'attachment'"
           align="center"
-        />
+        >
+          <wj-flex-grid-cell-template cellType="Cell" v-slot="cell">
+            <img
+              v-if="cell.item.attachments"
+              src="@/assets/btn-s-file-n.svg"
+              alt="첨부파일이 포함되어 있는 이미지"
+              class="attachments-cell"
+            />
+          </wj-flex-grid-cell-template>
+        </wj-flex-grid-column>
         <wj-flex-grid-column
           width="4*"
           :header="'작성자'"
@@ -274,7 +283,7 @@ export default {
     apiNoticeDeleteRequest(noticeId) {
       this.$deleteApi(`/api/notices/${noticeId}`).then(() => {
         this.refreshGridData(); // 삭제가 완료되면 페이지 새로고침
-        alert(`No: ${noticeId} 글이 삭제되었습니다`)
+        alert(`No: ${noticeId} 글이 삭제되었습니다`);
       });
     },
     // notice API
@@ -342,6 +351,10 @@ export default {
 </script>
 
 <style>
+.attachments-cell {
+  float: center;
+}
+
 .comment-number-view {
   color: #176de2;
 }
@@ -434,21 +447,23 @@ export default {
   background-color: #fff;
 }
 
+.wj-align-center {
+  justify-content: center;
+}
+
 div[wj-part="ch"] {
   box-shadow: 0 1px 6px 0 rgb(0 0 0 / 26%);
 }
 
 .wj-cell {
-  padding: 9px;
-}
-
-.wj-cell {
+  display: flex;
   font-size: 12px;
   color: #111;
   box-sizing: border-box;
   border: none;
   box-shadow: inset -1px -1px 0 0 var(--pale-grey);
   background-color: #f1f5f9;
+  padding: 8px;
 }
 
 .wj-cell.wj-alt {

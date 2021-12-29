@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="19" height="20" viewBox="0 0 19 20">
+    <defs>
+        <path id="9c9lc79r2b" d="M0 0H19V19H0z"/>
+        <path id="w86xyb2i9c" d="M14 4v10H4V4h10zM6.444 7L6 6.571V5H5v8h1V9h6v4h1V5h-1v1.571L11.556 7zM11 10H7v3h4v-3zm.004-5H6.997l-.005.991H10V6h1.004V5z"/>
+        <filter id="yaq4eyjo2a" width="105.3%" height="110.5%" x="-2.6%" y="-2.6%" filterUnits="objectBoundingBox">
+            <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feComposite in="shadowOffsetOuter1" in2="SourceAlpha" operator="out" result="shadowOffsetOuter1"/>
+            <feColorMatrix in="shadowOffsetOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0"/>
+        </filter>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <g>
+                <g>
+                    <g>
+                        <g transform="translate(-1350.000000, -266.000000) translate(10.000000, 190.000000) translate(0.000000, 34.000000) translate(77.000000, 42.000000) translate(1263.000000, 0.000000)">
+                            <g>
+                                <use fill="#000" filter="url(#yaq4eyjo2a)" xlink:href="#9c9lc79r2b"/>
+                                <path fill="#FFF" stroke="#A2AEBE" stroke-linejoin="square" d="M0.5 0.5H18.5V18.5H0.5z"/>
+                            </g>
+                            <use fill="#525C68" fill-rule="nonzero" xlink:href="#w86xyb2i9c"/>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

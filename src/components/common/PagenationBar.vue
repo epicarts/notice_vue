@@ -55,7 +55,7 @@ export default {
     // 페이지 숫자 목록
     pageCount: {
       type: Number,
-      default: 5,
+      default: 10,
     },
   },
   data() {
