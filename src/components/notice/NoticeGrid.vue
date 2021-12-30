@@ -275,6 +275,7 @@ export default {
     },
     updatePageSizeHandler(selectPageSize) {
       this.pageSize = selectPageSize;
+      this.page = 1; // 검색을 하므로 페이지를 초기화
       this.refreshGridData();
     },
     apiNoticeDeleteRequest(noticeId) {
