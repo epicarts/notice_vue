@@ -8,11 +8,11 @@
           alt="user-header-icon"
         />
       </li>
-      <li><span>물류본부</span></li>
+      <li><span>OW 개발총괄본부</span></li>
       <div class="Rectangle" />
-      <li><span>국내물류운영팀</span></li>
+      <li><span>OW 공통개발팀</span></li>
       <div class="Rectangle" />
-      <li><span>박병선 대리</span></li>
+      <li><span>최영호 사원</span></li>
     </ul>
   </div>
 </template>
@@ -24,7 +24,6 @@ export default {};
 <style scoped>
 .userinfo {
   display: flex;
-  width: 259px;
   height: 24px;
   padding: 4px 10px;
   border-radius: 4px;
