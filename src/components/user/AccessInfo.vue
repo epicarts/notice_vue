@@ -4,14 +4,26 @@
       <span>접속일시</span>
     </div>
     <div class="access-info-content">
-      <span>2021.03.31</span>
-      <span>13:00</span>
+      <span>{{ this.accessDay }}</span>
+      <span>{{ this.accessTime }}</span>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      accessTime: null,
+      accessDay: null,
+    };
+  },   
+  mounted() {
+    let today = new Date();
+    this.accessTime = `${today.getHours()}:${today.getMinutes()}`
+    this.accessDay = `${today.getFullYear()}.${today.getMonth() + 1}.${today.getDate()}`
+  },
+};
 </script>
 
 <style scoped>
