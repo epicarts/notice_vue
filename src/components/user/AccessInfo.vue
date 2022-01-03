@@ -21,7 +21,7 @@ export default {
   mounted() {
     let today = new Date();
     this.accessTime = `${today.getHours()}:${today.getMinutes()}`
-    this.accessDay = `${today.getFullYear()}.${today.getMonth() + 1}.${today.getDate()}`
+    this.accessDay = `${today.getFullYear()}.${('0' + (today.getMonth() + 1)).slice(-2)}.${('0' + today.getDate()).slice(-2)}`
   },
 };
 </script>

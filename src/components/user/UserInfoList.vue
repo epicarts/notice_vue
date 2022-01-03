@@ -10,7 +10,7 @@
       </li>
       <li><span>OW 개발총괄본부</span></li>
       <div class="Rectangle" />
-      <li><span>OW 공통개발팀</span></li>
+      <li><span>OW 공통개발실</span></li>
       <div class="Rectangle" />
       <li><span>최영호 사원</span></li>
     </ul>
