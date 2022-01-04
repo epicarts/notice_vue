@@ -521,4 +521,8 @@ div[wj-part="ch"] {
 .wj-glyph-down {
   top: 5px;
 }
+
+.search-input {
+  font-size: 12px;
+}
 </style>
