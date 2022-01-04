@@ -266,6 +266,10 @@ export default {
     async submit(e) {
       this.search = e.target.NoticeSearchValue.value;
       this.page = 1; // 검색을 하므로 페이지를 초기화
+      this.sort = {
+        headerText: "No", // defalut No
+        asc: false, // default 내림차순으로 정렬
+      },
       this.refreshGridData();
     },
     // 페이지네이션(pagenation)
