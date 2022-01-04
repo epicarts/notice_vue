@@ -20,7 +20,7 @@ export default {
   },   
   mounted() {
     let today = new Date();
-    this.accessTime = `${today.getHours()}:${today.getMinutes()}`
+    this.accessTime = `${('0' + today.getHours()).slice(-2)}:${('0' + today.getMinutes()).slice(-2)}`
     this.accessDay = `${today.getFullYear()}.${('0' + (today.getMonth() + 1)).slice(-2)}.${('0' + today.getDate()).slice(-2)}`
   },
 };
