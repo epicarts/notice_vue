@@ -315,7 +315,7 @@ export default {
 }
 
 .modal-scroll-layer {
-  height: 800px;
+  height: 600px;
   overflow: auto;
 }
 
