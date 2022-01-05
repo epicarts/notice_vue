@@ -3,7 +3,7 @@
     <div class="comment-title-area">
       <span class="comment-title"> <span>{{ this.commentText }}</span> 작성 </span>
       <span class="comment-form-help"
-        >모든 <span>{{ this.commentText }}</span> 은 비밀글 작성만 가능합니다.</span
+        >모든 <span>{{ this.commentText }}</span>은 비밀글 작성만 가능합니다.</span
       >
       <!-- slot -->
     </div>
